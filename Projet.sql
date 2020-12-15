@@ -1,4 +1,5 @@
 
+drop table  CATALOGUE_O cascade constraints;
 drop type   AUTEUR_T force;
 drop type   TAB_REF_AUTEURS force ;
 drop type   CATALOGUE_T force;
@@ -23,13 +24,14 @@ CREATE OR REPLACE TYPE CATALOGUE_T
 /
 
 CREATE OR REPLACE TYPE CATALOGUE_T AS OBJECT(
-ID                  NUMBER(4),
+CATNO               NUMBER(4),
 TITRE               VARCHAR2(20),
 ANNEE_EDITION       DATE,
 MAISON_EDITION      VARCHAR2(20),
 REF_AUTEURS         TAB_REF_AUTEURS,
-DESCRIPTION         CLOB,
-MAP MEMBER FUNCTION compAnneeEDITION return DATE  -- comparer avec ANNEE_EDITION décroissant
+DESCRIPTIONS        CLOB,
+MAP MEMBER FUNCTION compAnneeEDITION return DATE,  -- comparer avec ANNEE_EDITION décroissant
+MEMBER PROCEDURE consulterAuteurs  
 );
 /
 
@@ -101,6 +103,7 @@ NATIONALITE                 VARCHAR(20),
 VILLE                       VARCHAR(20),
 BIOGRAPHIE                  CLOB,
 MAP MEMBER FUNCTION compNomPrenomsNaissance return VARCHAR2 -- comparer avec NOM||PRENOM||DATE_DE_NAISSANCE
+
 );
 /
 
@@ -114,6 +117,14 @@ NOM                         VARCHAR(20),
 BIBLIOTHEQUES               TAB_REF_BIBLIOTHEQUE_T,
 MAP MEMBER FUNCTION compNom return VARCHAR2 -- comparer avec NOM croissant
 );
+/
+
+-- Création des tables
+CREATE TABLE CATALOGUE_O OF CATALOGUE_T(
+CONSTRAINT PK_CATALOGUE_O_CATNO PRIMARY KEY(CATNO),
+CONSTRAINT NNL_CATALOGUE_O_TITRE TITRE NOT NULL 
+)
+NESTED TABLE REF_AUTEURS STORE AS TABLE_REF_AUTEURS ;
 /
 
 
