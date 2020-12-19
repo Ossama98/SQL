@@ -251,144 +251,6 @@ refBiblio9 REF BIBLIOTHEQUE_T;
 refBiblio10 REF BIBLIOTHEQUE_T;
 
 BEGIN
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    1, 'Martin', TABPRENOMS_T('Gabriel', 'A'), null, '26 boulevard Renaud', '+33-655-537-820', 'punkis@icloud.fr', to_date('11/02/1983', 'DD/MM/YYYY'), to_date('08/11/2015', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh1;
-    
-
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    2, 'Bernard', TABPRENOMS_T('Léo', 'B'), null, '27 rue Barbe', '+33-735-554-648', 'skoch@yahoo.fr', to_date('18/02/1973', 'DD/MM/YYYY'), to_date('14/06/2016', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh2;
-    
-
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    3, 'Thomas', TABPRENOMS_T('Raphaël', 'C'), null, '28 avenue de Martins', '+33-655-544-986', 'mrobshaw@live.fr', to_date('21/04/1988', 'DD/MM/YYYY'), to_date('11/01/2016', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh3;
-    
-
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    4, 'Petit', TABPRENOMS_T('Arthur', 'D'), null, '29 place Charles', '+33-655-582-035', 'geekgrl@outlook.fr', to_date('23/05/1967', 'DD/MM/YYYY'), to_date('04/08/2020', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh4;
-    
-
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    5, 'Robert', TABPRENOMS_T('Louis', 'E'), null, '30 impasse Muller', '+33-775-557-450', 'malin@msn.fr', to_date('17/10/1984', 'DD/MM/YYYY'), to_date('28/06/2015', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh5;
-    
-
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    6, 'Richard', TABPRENOMS_T('Emma', 'F'), null, '31 rue Lamy', '+33-785-550-994', 'hmbrand@sbcglobal.fr', to_date('25/08/1967', 'DD/MM/YYYY'), to_date('09/12/2019', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh6;
-    
-
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    7, 'Durand', TABPRENOMS_T('Jade', 'E'), null, '32 rue Roy', '+33-655-552-115', 'zeitlin@hotmail.fr', to_date('26/01/1972', 'DD/MM/YYYY'), to_date('21/10/2019', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh7;
-    
-
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    8, 'Dubois', TABPRENOMS_T('Louise', 'R'), null, '33 place Roger', '+33-655-584-492', 'lamky@gmail.fr', to_date('02/06/2001', 'DD/MM/YYYY'), to_date('01/04/2017', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh8;
-    
-
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    9, 'Moreau', TABPRENOMS_T('Lucas', 'R'), null, '34 avenue Peron', '+33-700-555-126', 'bryanw@live.fr', to_date('15/05/1994', 'DD/MM/YYYY'), to_date('26/06/2017', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh9;
-    
-
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    10, 'Laurent', TABPRENOMS_T('Adam', 'R'), null, '35 avenue Maurice', '+33-700-555-643', 'helger@att.fr', to_date('07/03/1989', 'DD/MM/YYYY'), to_date('15/04/2019', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh10;
-    
-
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    11, 'Simon', TABPRENOMS_T('Maël', 'M'), null, '36 impasse Blanc', '+33-700-555-172', 'gator@msn.fr', to_date('27/02/1970', 'DD/MM/YYYY'), to_date('20/07/2015', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh11;
-    
-
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    12, 'Michel', TABPRENOMS_T('Jules', 'J'), null, '37 place Lemaire', '+33-655-531-855', 'psharpe@verizon.fr', to_date('05/04/1966', 'DD/MM/YYYY'), to_date('23/12/2016', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh12;
-    
-
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    13, 'Lefebvre', TABPRENOMS_T('Hugo', 'J'), null, '38 rue Simon', '+33-700-555-300', 'fangorn@mac.fr', to_date('10/04/1971', 'DD/MM/YYYY'), to_date('03/09/2017', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh13;
-    
-
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    14, 'Leroy', TABPRENOMS_T('Alice', 'J'), null, '39 rue de Blin', '+33-700-555-811', 'seano@verizon.fr', to_date('01/02/1976', 'DD/MM/YYYY'), to_date('07/11/2019', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh14;
-    
-
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    15, 'Roux', TABPRENOMS_T('Liam', 'L'), null, '40 place Breton', '+33-765-556-770', 'dexter@yahoo.fr', to_date('08/01/1993', 'DD/MM/YYYY'), to_date('18/11/2018', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh15;
-    
-
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    16, 'David', TABPRENOMS_T('Lina', 'L'), null, '41 place Fernandez', '+33-655-529-040', 'fmerges@hotmail.fr', to_date('14/02/1984', 'DD/MM/YYYY'), to_date('06/05/2015', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh16;
-    
-
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    17, 'Bertrand', TABPRENOMS_T('Chloé', 'M'), null, '42 chemin Perez', '+33-775-556-489', 'tedrlord@outlook.fr', to_date('20/02/1989', 'DD/MM/YYYY'), to_date('27/12/2016', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh17;
-    
-
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    18, 'Morel', TABPRENOMS_T('Noah', 'A'), null, '43 chemin de Godard', '+33-700-555-252', 'gbacon@yahoo.fr', to_date('19/08/1981', 'DD/MM/YYYY'), to_date('10/08/2020', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh18;
-    
-
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    19, 'Fournier', TABPRENOMS_T('Ethan', 'P'), null, '44 rue de Duval', '+33-700-555-964', 'seanq@yahoo.fr', to_date('13/09/1992', 'DD/MM/YYYY'), to_date('16/11/2018', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh19;
-    
-
-INSERT INTO ADHERENT_O ad VALUES (
-            ADHERENT_T(
-    20, 'Girard', TABPRENOMS_T('Paul', 'P'), null, '45 rue de Etienne', '+33-655-543-488', 'dkeeler@verizon.fr', to_date('06/12/1990', 'DD/MM/YYYY'), to_date('24/05/2019', 'DD-MM-YYYY'), 'Nice'
-    ))
-    returning ref(ad) into refAdh20;
     
 ---------------------------------CATALOGUE----------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO CATALOGUE_O ca VALUES (
@@ -546,8 +408,213 @@ INSERT INTO EXEMPLAIRE_O ex VALUES (
     10, refCat10
     ))
     returning ref(ex) into refExm10;
+
+---------------------------BIBLIOTHEQUE------------------------------------------------------------------------------------------------------------------------------------------------------
+
+INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    1, 'Ile-de-France', TABEXEMPLAIRES_T(refExm6, refExm8), '65  Faubourg Saint Honoré', 'PARIS'
+    ))
+    returning ref(el) into refBiblio1;
     
---EMPRUNT    
+    INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    2, 'Corse', TABEXEMPLAIRES_T(refExm3), '107  Rue du Limas', 'BASTIA'
+    ))
+    returning ref(el) into refBiblio2;
+
+
+INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    3, 'Nord-Pas-de-Calais', TABEXEMPLAIRES_T(refExm1), '54  rue Cazade', 'DUNKERQUE'
+    ))
+    returning ref(el) into refBiblio3;
+
+
+INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    4, 'Provence-Alpes-Côte d Azur', TABEXEMPLAIRES_T(refExm2), '65  cours Franklin Roosevelt', 'MARSEILLE'
+    ))
+    returning ref(el) into refBiblio4;
+
+
+INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    5, 'Rhône-Alpes', TABEXEMPLAIRES_T(refExm10, refExm9), '46  rue Gustave Eiffel', 'ROANNE'
+    ))
+    returning ref(el) into refBiblio5;
+    
+    INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    6, 'Île-de-France', TABEXEMPLAIRES_T(refExm1, refExm2), '26  rue de Penthièvre', 'PONTOISE'
+    ))
+    returning ref(el) into refBiblio6;
+
+INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    7, 'Lorraine', TABEXEMPLAIRES_T(refExm4, refExm3), '33  boulevard Gustave Eiffel', 'VERDUN'
+    ))
+    returning ref(el) into refBiblio7;
+
+INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    8, 'Provence-Alpes-Côte d Azur', TABEXEMPLAIRES_T(refExm5, refExm6), '99  rue Reine Elisabeth', 'MENTON'
+    ))
+    returning ref(el) into refBiblio8;
+
+INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    9, 'Île-de-France', TABEXEMPLAIRES_T(refExm7, refExm8), '63  Square de la Couronne', 'PARIS'
+    ))
+    returning ref(el) into refBiblio9;
+
+INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    10, 'Nord-Pas-de-Calais', TABEXEMPLAIRES_T(refExm9), '32  Rue Hubert de Lisle', 'LOOS'
+    ))
+    returning ref(el) into refBiblio10;
+
+-------------------------------------------------------------------------ADHERENT----------------------------------------------------------------------------
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    1, 'Martin', TABPRENOMS_T('Gabriel', 'A'), refBiblio1, '26 boulevard Renaud', '+33-655-537-820', 'punkis@icloud.fr', to_date('11/02/1983', 'DD/MM/YYYY'), to_date('08/11/2015', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh1;
+    
+
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    2, 'Bernard', TABPRENOMS_T('Léo', 'B'), refBiblio2, '27 rue Barbe', '+33-735-554-648', 'skoch@yahoo.fr', to_date('18/02/1973', 'DD/MM/YYYY'), to_date('14/06/2016', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh2;
+    
+
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    3, 'Thomas', TABPRENOMS_T('Raphaël', 'C'), refBiblio3, '28 avenue de Martins', '+33-655-544-986', 'mrobshaw@live.fr', to_date('21/04/1988', 'DD/MM/YYYY'), to_date('11/01/2016', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh3;
+    
+
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    4, 'Petit', TABPRENOMS_T('Arthur', 'D'), refBiblio4, '29 place Charles', '+33-655-582-035', 'geekgrl@outlook.fr', to_date('23/05/1967', 'DD/MM/YYYY'), to_date('04/08/2020', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh4;
+    
+
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    5, 'Robert', TABPRENOMS_T('Louis', 'E'), refBiblio5, '30 impasse Muller', '+33-775-557-450', 'malin@msn.fr', to_date('17/10/1984', 'DD/MM/YYYY'), to_date('28/06/2015', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh5;
+    
+
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    6, 'Richard', TABPRENOMS_T('Emma', 'F'), refBiblio6, '31 rue Lamy', '+33-785-550-994', 'hmbrand@sbcglobal.fr', to_date('25/08/1967', 'DD/MM/YYYY'), to_date('09/12/2019', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh6;
+    
+
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    7, 'Durand', TABPRENOMS_T('Jade', 'E'), refBiblio7, '32 rue Roy', '+33-655-552-115', 'zeitlin@hotmail.fr', to_date('26/01/1972', 'DD/MM/YYYY'), to_date('21/10/2019', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh7;
+    
+
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    8, 'Dubois', TABPRENOMS_T('Louise', 'R'), refBiblio8, '33 place Roger', '+33-655-584-492', 'lamky@gmail.fr', to_date('02/06/2001', 'DD/MM/YYYY'), to_date('01/04/2017', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh8;
+    
+
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    9, 'Moreau', TABPRENOMS_T('Lucas', 'R'), refBiblio9, '34 avenue Peron', '+33-700-555-126', 'bryanw@live.fr', to_date('15/05/1994', 'DD/MM/YYYY'), to_date('26/06/2017', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh9;
+    
+
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    10, 'Laurent', TABPRENOMS_T('Adam', 'R'), refBiblio10, '35 avenue Maurice', '+33-700-555-643', 'helger@att.fr', to_date('07/03/1989', 'DD/MM/YYYY'), to_date('15/04/2019', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh10;
+    
+
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    11, 'Simon', TABPRENOMS_T('Maël', 'M'), refBiblio1, '36 impasse Blanc', '+33-700-555-172', 'gator@msn.fr', to_date('27/02/1970', 'DD/MM/YYYY'), to_date('20/07/2015', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh11;
+    
+
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    12, 'Michel', TABPRENOMS_T('Jules', 'J'), refBiblio2, '37 place Lemaire', '+33-655-531-855', 'psharpe@verizon.fr', to_date('05/04/1966', 'DD/MM/YYYY'), to_date('23/12/2016', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh12;
+    
+
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    13, 'Lefebvre', TABPRENOMS_T('Hugo', 'J'), refBiblio3, '38 rue Simon', '+33-700-555-300', 'fangorn@mac.fr', to_date('10/04/1971', 'DD/MM/YYYY'), to_date('03/09/2017', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh13;
+    
+
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    14, 'Leroy', TABPRENOMS_T('Alice', 'J'), refBiblio4, '39 rue de Blin', '+33-700-555-811', 'seano@verizon.fr', to_date('01/02/1976', 'DD/MM/YYYY'), to_date('07/11/2019', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh14;
+    
+
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    15, 'Roux', TABPRENOMS_T('Liam', 'L'), refBiblio5, '40 place Breton', '+33-765-556-770', 'dexter@yahoo.fr', to_date('08/01/1993', 'DD/MM/YYYY'), to_date('18/11/2018', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh15;
+    
+
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    16, 'David', TABPRENOMS_T('Lina', 'L'), refBiblio6, '41 place Fernandez', '+33-655-529-040', 'fmerges@hotmail.fr', to_date('14/02/1984', 'DD/MM/YYYY'), to_date('06/05/2015', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh16;
+    
+
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    17, 'Bertrand', TABPRENOMS_T('Chloé', 'M'), refBiblio7, '42 chemin Perez', '+33-775-556-489', 'tedrlord@outlook.fr', to_date('20/02/1989', 'DD/MM/YYYY'), to_date('27/12/2016', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh17;
+    
+
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    18, 'Morel', TABPRENOMS_T('Noah', 'A'), refBiblio8, '43 chemin de Godard', '+33-700-555-252', 'gbacon@yahoo.fr', to_date('19/08/1981', 'DD/MM/YYYY'), to_date('10/08/2020', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh18;
+    
+
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    19, 'Fournier', TABPRENOMS_T('Ethan', 'P'), refBiblio9, '44 rue de Duval', '+33-700-555-964', 'seanq@yahoo.fr', to_date('13/09/1992', 'DD/MM/YYYY'), to_date('16/11/2018', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh19;
+    
+
+INSERT INTO ADHERENT_O ad VALUES (
+            ADHERENT_T(
+    20, 'Girard', TABPRENOMS_T('Paul', 'P'), refBiblio10, '45 rue de Etienne', '+33-655-543-488', 'dkeeler@verizon.fr', to_date('06/12/1990', 'DD/MM/YYYY'), to_date('24/05/2019', 'DD-MM-YYYY'), 'Nice'
+    ))
+    returning ref(ad) into refAdh20;
+    
+---------------------------------------------------------------------------------EMPRUNT----- ---------------------------------------------------------------------------  
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     1, refAdh1, to_date('21/01/2020', 'DD-MM-YYYY'), to_date('21/02/2020', 'DD-MM-YYYY'), to_date('15/02/2020', 'DD-MM-YYYY'), refExm1
@@ -666,71 +733,5 @@ INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     20, refAdh20, to_date('05/05/2020', 'DD-MM-YYYY'), to_date('05/06/2020', 'DD-MM-YYYY'), null, refExm9
     ));
-
----------------------------BIBLIOTHEQUE------------------------------------------------------------------------------------------------------------------------------------------------------
-
-INSERT INTO BIBLIOTHEQUE_O el VALUES (
-            BIBLIOTHEQUE_T(
-    1, 'Ile-de-France', TABEXEMPLAIRES_T(refExm6, refExm8), '65  Faubourg Saint Honoré', 'PARIS'
-    ))
-    returning ref(el) into refBiblio1;
-    
-    INSERT INTO BIBLIOTHEQUE_O el VALUES (
-            BIBLIOTHEQUE_T(
-    2, 'Corse', TABEXEMPLAIRES_T(refExm3), '107  Rue du Limas', 'BASTIA'
-    ))
-    returning ref(el) into refBiblio2;
-
-
-INSERT INTO BIBLIOTHEQUE_O el VALUES (
-            BIBLIOTHEQUE_T(
-    3, 'Nord-Pas-de-Calais', TABEXEMPLAIRES_T(refExm1), '54  rue Cazade', 'DUNKERQUE'
-    ))
-    returning ref(el) into refBiblio3;
-
-
-INSERT INTO BIBLIOTHEQUE_O el VALUES (
-            BIBLIOTHEQUE_T(
-    4, 'Provence-Alpes-Côte d Azur', TABEXEMPLAIRES_T(refExm2), '65  cours Franklin Roosevelt', 'MARSEILLE'
-    ))
-    returning ref(el) into refBiblio4;
-
-
-INSERT INTO BIBLIOTHEQUE_O el VALUES (
-            BIBLIOTHEQUE_T(
-    5, 'Rhône-Alpes', TABEXEMPLAIRES_T(refExm10, refExm9), '46  rue Gustave Eiffel', 'ROANNE'
-    ))
-    returning ref(el) into refBiblio5;
-    
-    INSERT INTO BIBLIOTHEQUE_O el VALUES (
-            BIBLIOTHEQUE_T(
-    6, 'Île-de-France', TABEXEMPLAIRES_T(refExm1, refExm2), '26  rue de Penthièvre', 'PONTOISE'
-    ))
-    returning ref(el) into refBiblio6;
-
-INSERT INTO BIBLIOTHEQUE_O el VALUES (
-            BIBLIOTHEQUE_T(
-    7, 'Lorraine', TABEXEMPLAIRES_T(refExm4, refExm3), '33  boulevard Gustave Eiffel', 'VERDUN'
-    ))
-    returning ref(el) into refBiblio7;
-
-INSERT INTO BIBLIOTHEQUE_O el VALUES (
-            BIBLIOTHEQUE_T(
-    8, 'Provence-Alpes-Côte d Azur', TABEXEMPLAIRES_T(refExm5, refExm6), '99  rue Reine Elisabeth', 'MENTON'
-    ))
-    returning ref(el) into refBiblio8;
-
-INSERT INTO BIBLIOTHEQUE_O el VALUES (
-            BIBLIOTHEQUE_T(
-    9, 'Île-de-France', TABEXEMPLAIRES_T(refExm7, refExm8), '63  Square de la Couronne', 'PARIS'
-    ))
-    returning ref(el) into refBiblio9;
-
-INSERT INTO BIBLIOTHEQUE_O el VALUES (
-            BIBLIOTHEQUE_T(
-    10, 'Nord-Pas-de-Calais', TABEXEMPLAIRES_T(refExm9), '32  Rue Hubert de Lisle', 'LOOS'
-    ))
-    returning ref(el) into refBiblio10;
-
 END;
 /
