@@ -193,47 +193,57 @@ CREATE INDEX IDX_CATALOGUE_NESTED_TABLE_ID ON TABLE_REF_AUTEURS(NESTED_TABLE_ID,
 
 DECLARE
 refAdh1 REF ADHERENT_T;
-
 refAdh2 REF ADHERENT_T;
-
 refAdh3 REF ADHERENT_T;
-
 refAdh4 REF ADHERENT_T;
-
 refAdh5 REF ADHERENT_T;
-
 refAdh6 REF ADHERENT_T;
-
 refAdh7 REF ADHERENT_T;
-
 refAdh8 REF ADHERENT_T;
-
 refAdh9 REF ADHERENT_T;
-
 refAdh10 REF ADHERENT_T;
-
 refAdh11 REF ADHERENT_T;
-
 refAdh12 REF ADHERENT_T;
-
 refAdh13 REF ADHERENT_T;
-
 refAdh14 REF ADHERENT_T;
-
 refAdh15 REF ADHERENT_T;
-
 refAdh16 REF ADHERENT_T;
-
 refAdh17 REF ADHERENT_T;
-
 refAdh18 REF ADHERENT_T;
-
 refAdh19 REF ADHERENT_T;
-
 refAdh20 REF ADHERENT_T;
 
+refCat1 REF CATALOGUE_T;
+refCat2 REF CATALOGUE_T;
+refCat3 REF CATALOGUE_T;
+refCat4 REF CATALOGUE_T;
+refCat5 REF CATALOGUE_T;
+refCat6 REF CATALOGUE_T;
+refCat7 REF CATALOGUE_T;
+refCat8 REF CATALOGUE_T;
+refCat9 REF CATALOGUE_T;
+refCat10 REF CATALOGUE_T;
 
-begin
+refExm1 REF EXEMPLAIRE_T;
+refExm2 REF EXEMPLAIRE_T;
+refExm3 REF EXEMPLAIRE_T;
+refExm4 REF EXEMPLAIRE_T;
+refExm5 REF EXEMPLAIRE_T;
+refExm6 REF EXEMPLAIRE_T;
+refExm7 REF EXEMPLAIRE_T;
+refExm8 REF EXEMPLAIRE_T;
+refExm9 REF EXEMPLAIRE_T;
+refExm10 REF EXEMPLAIRE_T;
+
+refAut1 REF AUTEUR_T;
+refAut2 REF AUTEUR_T;
+refAut3 REF AUTEUR_T;
+refAut4 REF AUTEUR_T;
+refAut5 REF AUTEUR_T;
+refAut6 REF AUTEUR_T;
+refAut7 REF AUTEUR_T;
+
+BEGIN
 INSERT INTO ADHERENT_O ad VALUES (
             ADHERENT_T(
     1, 'Martin', TABPRENOMS_T('Gabriel', 'A'), null, '26 boulevard Renaud', '+33-655-537-820', 'punkis@icloud.fr', to_date('11/02/1983', 'DD/MM/YYYY'), to_date('08/11/2015', 'DD-MM-YYYY'), 'Nice'
@@ -373,24 +383,7 @@ INSERT INTO ADHERENT_O ad VALUES (
     ))
     returning ref(ad) into refAdh20;
     
-
-end;
-/
-
--- Insértion dans CATALOGUE_O -----------------
-DECLARE
-refCat1 REF CATALOGUE_T;
-refCat2 REF CATALOGUE_T;
-refCat3 REF CATALOGUE_T;
-refCat4 REF CATALOGUE_T;
-refCat5 REF CATALOGUE_T;
-refCat6 REF CATALOGUE_T;
-refCat7 REF CATALOGUE_T;
-refCat8 REF CATALOGUE_T;
-refCat9 REF CATALOGUE_T;
-refCat10 REF CATALOGUE_T;
-
-BEGIN
+--CATALOGUE
 INSERT INTO CATALOGUE_O ca VALUES (
     CATALOGUE_T(1,'LE PETIT PRINCE',to_date('06/04/1943','DD/MM/YYYY'),'Gallimard',null,null))
     returning ref(ca) into refCat1;
@@ -429,8 +422,123 @@ INSERT INTO CATALOGUE_O ca VALUES (
 
 INSERT INTO CATALOGUE_O ca VALUES (
     CATALOGUE_T(10,'LIVRE10',to_date('02/06/1995','DD/MM/YYYY'),'MAISON10',null,null))
-    returning ref(ca) into refCat10;      
+    returning ref(ca) into refCat10;
     
-end;
-/   
+--AUTTEUR    
     
+INSERT INTO AUTEUR_O ad VALUES (
+            AUTEUR_T(
+    1, 'GIRARD', TABPRENOMS_T('Paul', 'P'), to_date('06/12/1990', 'DD/MM/YYYY'), to_date('24/05/2019',  'DD-MM-YYYY'), 'FRANCAIS', 'Nice', null
+    ))
+    returning ref(ad) into refAut1;
+    
+    INSERT INTO AUTEUR_O ad VALUES (
+            AUTEUR_T(
+    2, 'GUILLOU', TABPRENOMS_T('Pierre', 'Pépé'), to_date('07/12/1999', 'DD/MM/YYYY'), to_date('24/12/2010',  'DD-MM-YYYY'), 'HONGROIS', 'Boston', null
+    ))
+    returning ref(ad) into refAut2;
+    
+    INSERT INTO AUTEUR_O ad VALUES (
+            AUTEUR_T(
+    3, 'JACOB', TABPRENOMS_T('Robin', 'Piedro'), to_date('23/10/1999', 'DD/MM/YYYY'), to_date('24/09/2018',  'DD-MM-YYYY'), 'JAPONAIS', 'Londre', null
+    ))
+    returning ref(ad) into refAut3;
+
+INSERT INTO AUTEUR_O ad VALUES (
+            AUTEUR_T(
+    4, 'NOUILLE', TABPRENOMS_T('Crabi', 'Poulet'), to_date('06/12/2000', 'DD/MM/YYYY'), to_date('24/06/2019',  'DD-MM-YYYY'), 'FRANCAIS', 'Nice', null
+    ))
+    returning ref(ad) into refAut4;
+
+INSERT INTO AUTEUR_O ad VALUES (
+            AUTEUR_T(
+    5, 'UNDEAD', TABPRENOMS_T('Jacques', 'P'), to_date('29/04/1899', 'DD/MM/YYYY'), to_date('29/04/1999', 'DD/MM/YYYY'), 'FRANCAIS', 'Nice', null
+    ))
+    returning ref(ad) into refAut5;
+
+INSERT INTO AUTEUR_O ad VALUES (
+            AUTEUR_T(
+    6, 'LAGALLY', TABPRENOMS_T('Jacqueline', 'Micheline'), to_date('06/12/1990', 'DD/MM/YYYY'), null, 'RUSSE', 'Rostov-sur-le-Don', null
+    ))
+    returning ref(ad) into refAut6;
+
+
+INSERT INTO AUTEUR_O ad VALUES (
+            AUTEUR_T(
+    7, 'KOUNA', TABPRENOMS_T('Boson', 'Odette'), to_date('15/03/0001', 'DD/MM/YYYY'), null, 'GRECQUE', 'Athena s Temple', null
+    ))
+    returning ref(ad) into refAut7;
+    
+--EXAMPLAIRES
+    
+INSERT INTO EXEMPLAIRE_O ex VALUES (
+            EXEMPLAIRE_T(
+    1, refCat1
+    ))
+    returning ref(ex) into refExm1;
+    
+
+INSERT INTO EXEMPLAIRE_O ex VALUES (
+            EXEMPLAIRE_T(
+    2, refCat2
+    ))
+    returning ref(ex) into refExm2;
+    
+
+INSERT INTO EXEMPLAIRE_O ex VALUES (
+            EXEMPLAIRE_T(
+    3, refCat3
+    ))
+    returning ref(ex) into refExm3;
+    
+
+INSERT INTO EXEMPLAIRE_O ex VALUES (
+            EXEMPLAIRE_T(
+    4, refCat4
+    ))
+    returning ref(ex) into refExm4;
+    
+
+INSERT INTO EXEMPLAIRE_O ex VALUES (
+            EXEMPLAIRE_T(
+    5, refCat5
+    ))
+    returning ref(ex) into refExm5;
+    
+
+INSERT INTO EXEMPLAIRE_O ex VALUES (
+            EXEMPLAIRE_T(
+    6, refCat6
+    ))
+    returning ref(ex) into refExm6;
+    
+
+INSERT INTO EXEMPLAIRE_O ex VALUES (
+            EXEMPLAIRE_T(
+    7, refCat7
+    ))
+    returning ref(ex) into refExm7;
+    
+
+INSERT INTO EXEMPLAIRE_O ex VALUES (
+            EXEMPLAIRE_T(
+    8, refCat8
+    ))
+    returning ref(ex) into refExm8;
+    
+
+INSERT INTO EXEMPLAIRE_O ex VALUES (
+            EXEMPLAIRE_T(
+    9, refCat9
+    ))
+    returning ref(ex) into refExm9;
+    
+
+INSERT INTO EXEMPLAIRE_O ex VALUES (
+            EXEMPLAIRE_T(
+    10, refCat10
+    ))
+    returning ref(ex) into refExm10;
+    
+END;
+/
