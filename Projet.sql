@@ -254,43 +254,43 @@ BEGIN
     
 ---------------------------------CATALOGUE----------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO CATALOGUE_O ca VALUES (
-    CATALOGUE_T(1,'LE PETIT PRINCE',to_date('06/04/1943','DD/MM/YYYY'),'Gallimard',null,null))
+    CATALOGUE_T(1,'LE PETIT PRINCE',to_date('06/04/1943','DD/MM/YYYY'),'Gallimard',TAB_REF_AUTEURS_T(refAut1),null))
     returning ref(ca) into refCat1;
     
 INSERT INTO CATALOGUE_O ca VALUES (
-    CATALOGUE_T(2,'LIVRE2',to_date('19/05/1998','DD/MM/YYYY'),'MAISON2',null,null))
+    CATALOGUE_T(2,'LIVRE2',to_date('19/05/1998','DD/MM/YYYY'),'MAISON2',TAB_REF_AUTEURS_T(refAut2),null))
     returning ref(ca) into refCat2;    
   
 INSERT INTO CATALOGUE_O ca VALUES (
-    CATALOGUE_T(3,'LIVRE3',to_date('18/03/1997','DD/MM/YYYY'),'MAISON3',null,null))
+    CATALOGUE_T(3,'LIVRE3',to_date('18/03/1997','DD/MM/YYYY'),'MAISON3',TAB_REF_AUTEURS_T(refAut3),null))
     returning ref(ca) into refCat3;        
     
 INSERT INTO CATALOGUE_O ca VALUES (
-    CATALOGUE_T(4,'LIVRE4',to_date('15/03/1999','DD/MM/YYYY'),'MAISON4',null,null))
+    CATALOGUE_T(4,'LIVRE4',to_date('15/03/1999','DD/MM/YYYY'),'MAISON4',TAB_REF_AUTEURS_T(refAut4),null))
     returning ref(ca) into refCat4;
     
 INSERT INTO CATALOGUE_O ca VALUES (
-    CATALOGUE_T(5,'LIVRE5',to_date('07/07/2000','DD/MM/YYYY'),'MAISON5',null,null))
+    CATALOGUE_T(5,'LIVRE5',to_date('07/07/2000','DD/MM/YYYY'),'MAISON5',TAB_REF_AUTEURS_T(refAut5),null))
     returning ref(ca) into refCat5;      
  
 INSERT INTO CATALOGUE_O ca VALUES (
-    CATALOGUE_T(6,'LIVRE5',to_date('09/01/1997','DD/MM/YYYY'),'MAISON6',null,null))
+    CATALOGUE_T(6,'LIVRE5',to_date('09/01/1997','DD/MM/YYYY'),'MAISON6',TAB_REF_AUTEURS_T(refAut6),null))
     returning ref(ca) into refCat6;      
  
 INSERT INTO CATALOGUE_O ca VALUES (
-    CATALOGUE_T(7,'LIVRE7',to_date('12/11/1962','DD/MM/YYYY'),'MAISON7',null,null))
+    CATALOGUE_T(7,'LIVRE7',to_date('12/11/1962','DD/MM/YYYY'),'MAISON7',TAB_REF_AUTEURS_T(refAut7),null))
     returning ref(ca) into refCat7;          
 
 INSERT INTO CATALOGUE_O ca VALUES (
-    CATALOGUE_T(8,'LIVRE8',to_date('01/12/1968','DD/MM/YYYY'),'MAISON8',null,null))
+    CATALOGUE_T(8,'LIVRE8',to_date('01/12/1968','DD/MM/YYYY'),'MAISON8',TAB_REF_AUTEURS_T(refAut1, refAut2),null))
     returning ref(ca) into refCat8;      
 
 INSERT INTO CATALOGUE_O ca VALUES (
-    CATALOGUE_T(9,'LIVRE9',to_date('17/07/2000','DD/MM/YYYY'),'MAISON9',null,null))
+    CATALOGUE_T(9,'LIVRE9',to_date('17/07/2000','DD/MM/YYYY'),'MAISON9',TAB_REF_AUTEURS_T(refAut7, refAut3),null))
     returning ref(ca) into refCat9;      
 
 INSERT INTO CATALOGUE_O ca VALUES (
-    CATALOGUE_T(10,'LIVRE10',to_date('02/06/1995','DD/MM/YYYY'),'MAISON10',null,null))
+    CATALOGUE_T(10,'LIVRE10',to_date('02/06/1995','DD/MM/YYYY'),'MAISON10',TAB_REF_AUTEURS_T(refAut4, refAut7),null))
     returning ref(ca) into refCat10;
     
 ---------------------------AUTTEUR------------------------------------------------------------------------------------------------------------------------------------------------------
