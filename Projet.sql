@@ -51,9 +51,9 @@ CREATE OR REPLACE TYPE TABEXEMPLAIRES_T AS TABLE OF REF EXEMPLAIRE_T
 
 CREATE OR REPLACE TYPE BIBLIOTHEQUE_T AS OBJECT(
 ID                          NUMBER(4),
-REGION                      VARCHAR(20),
+REGION                      VARCHAR(50),
 EXEMPLAIRES                 TABEXEMPLAIRES_T,
-ADDRESSE                    VARCHAR(20),
+ADDRESSE                    VARCHAR(50),
 VILLE                       VARCHAR(20),
 MAP MEMBER FUNCTION compRegionVille return VARCHAR2, -- comparer avec région||ville
 MEMBER PROCEDURE ajoutExemplaire(exemplaire in EXEMPLAIRE_T)
@@ -238,6 +238,17 @@ refAut4 REF AUTEUR_T;
 refAut5 REF AUTEUR_T;
 refAut6 REF AUTEUR_T;
 refAut7 REF AUTEUR_T;
+
+refBiblio1 REF BIBLIOTHEQUE_T;
+refBiblio2 REF BIBLIOTHEQUE_T;
+refBiblio3 REF BIBLIOTHEQUE_T;
+refBiblio4 REF BIBLIOTHEQUE_T;
+refBiblio5 REF BIBLIOTHEQUE_T;
+refBiblio6 REF BIBLIOTHEQUE_T;
+refBiblio7 REF BIBLIOTHEQUE_T;
+refBiblio8 REF BIBLIOTHEQUE_T;
+refBiblio9 REF BIBLIOTHEQUE_T;
+refBiblio10 REF BIBLIOTHEQUE_T;
 
 BEGIN
 INSERT INTO ADHERENT_O ad VALUES (
@@ -541,120 +552,185 @@ INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     1, refAdh1, to_date('21/01/2020', 'DD-MM-YYYY'), to_date('21/02/2020', 'DD-MM-YYYY'), to_date('15/02/2020', 'DD-MM-YYYY'), refExm1
     ));
-    
+
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     2, refAdh2, to_date('19/04/2020', 'DD-MM-YYYY'), to_date('19/05/2020', 'DD-MM-YYYY'), to_date('13/05/2020', 'DD-MM-YYYY'), refExm2
     ));
-    
+
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     3, refAdh3, to_date('05/02/2020', 'DD-MM-YYYY'), to_date('05/03/2020', 'DD-MM-YYYY'), to_date('01/03/2020', 'DD-MM-YYYY'), refExm3
     ));
-    
+
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     4, refAdh4, to_date('30/03/2020', 'DD-MM-YYYY'), to_date('30/04/2020', 'DD-MM-YYYY'), to_date('25/04/2020', 'DD-MM-YYYY'), refExm4
     ));
-    
+
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     5, refAdh5, to_date('06/08/2020', 'DD-MM-YYYY'), to_date('06/09/2020', 'DD-MM-YYYY'), to_date('01/09/2020', 'DD-MM-YYYY'), refExm5
     ));
-    
+
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     6, refAdh6, to_date('04/04/2020', 'DD-MM-YYYY'), to_date('04/05/2020', 'DD-MM-YYYY'), to_date('01/05/2020', 'DD-MM-YYYY'), refExm6
     ));
-    
+
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     7, refAdh7, to_date('06/08/2020', 'DD-MM-YYYY'), to_date('06/09/2020', 'DD-MM-YYYY'), to_date('01/09/2020', 'DD-MM-YYYY'), refExm7
     ));
-    
+
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     8, refAdh8, to_date('26/01/2020', 'DD-MM-YYYY'), to_date('26/02/2020', 'DD-MM-YYYY'), to_date('19/02/2020', 'DD-MM-YYYY'), refExm8
     ));
-    
+
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     9, refAdh9, to_date('26/08/2020', 'DD-MM-YYYY'), to_date('26/09/2020', 'DD-MM-YYYY'), to_date('23/09/2020', 'DD-MM-YYYY'), refExm9
     ));
-    
+
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     10, refAdh10, to_date('10/06/2020', 'DD-MM-YYYY'), to_date('10/07/2020', 'DD-MM-YYYY'), to_date('05/07/2020', 'DD-MM-YYYY'), refExm10
     ));
-    
+
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     11, refAdh11, to_date('14/05/2020', 'DD-MM-YYYY'), to_date('14/06/2020', 'DD-MM-YYYY'), to_date('10/06/2020', 'DD-MM-YYYY'), refExm1
     ));
-    
+
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     12, refAdh12, to_date('11/01/2020', 'DD-MM-YYYY'), to_date('11/08/2020', 'DD-MM-YYYY'), to_date('01/08/2020', 'DD-MM-YYYY'), refExm2
     ));
-    
+
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     13, refAdh13, to_date('23/04/2020', 'DD-MM-YYYY'), to_date('23/05/2020', 'DD-MM-YYYY'), to_date('01/05/2020', 'DD-MM-YYYY'), refExm3
     ));
-    
+
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     14, refAdh14, to_date('16/01/2020', 'DD-MM-YYYY'), to_date('16/02/2020', 'DD-MM-YYYY'), to_date('01/02/2020', 'DD-MM-YYYY'), refExm4
     ));
-    
+
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     15, refAdh15, to_date('07/06/2020', 'DD-MM-YYYY'), to_date('07/07/2020', 'DD-MM-YYYY'), to_date('01/07/2020', 'DD-MM-YYYY'), refExm5
     ));
-    
+
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     16, refAdh16, to_date('23/06/2020', 'DD-MM-YYYY'), to_date('23/07/2020', 'DD-MM-YYYY'), null, refExm5
     ));
-    
+
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     17, refAdh17, to_date('20/08/2020', 'DD-MM-YYYY'), to_date('20/09/2020', 'DD-MM-YYYY'), null, refExm6
     ));
-    
+
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     18, refAdh18, to_date('09/05/2020', 'DD-MM-YYYY'), to_date('09/06/2020', 'DD-MM-YYYY'), null, refExm7
     ));
-    
+
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     19, refAdh19, to_date('23/04/2020', 'DD-MM-YYYY'), to_date('23/07/2020', 'DD-MM-YYYY'), null, refExm8
     ));
-    
+
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     20, refAdh20, to_date('05/05/2020', 'DD-MM-YYYY'), to_date('05/06/2020', 'DD-MM-YYYY'), null, refExm9
     ));
+
+---------------------------BIBLIOTHEQUE------------------------------------------------------------------------------------------------------------------------------------------------------
+
+INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    1, 'Ile-de-France', TABEXEMPLAIRES_T(refExm6, refExm8), '65  Faubourg Saint Honoré', 'PARIS'
+    ))
+    returning ref(el) into refBiblio1;
     
+    INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    2, 'Corse', TABEXEMPLAIRES_T(refExm3), '107  Rue du Limas', 'BASTIA'
+    ))
+    returning ref(el) into refBiblio2;
+
+
+INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    3, 'Nord-Pas-de-Calais', TABEXEMPLAIRES_T(refExm1), '54  rue Cazade', 'DUNKERQUE'
+    ))
+    returning ref(el) into refBiblio3;
+
+
+INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    4, 'Provence-Alpes-Côte d Azur', TABEXEMPLAIRES_T(refExm2), '65  cours Franklin Roosevelt', 'MARSEILLE'
+    ))
+    returning ref(el) into refBiblio4;
+
+
+INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    5, 'Rhône-Alpes', TABEXEMPLAIRES_T(refExm10, refExm9), '46  rue Gustave Eiffel', 'ROANNE'
+    ))
+    returning ref(el) into refBiblio5;
+    
+    INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    6, 'Île-de-France', TABEXEMPLAIRES_T(refExm1, refExm2), '26  rue de Penthièvre', 'PONTOISE'
+    ))
+    returning ref(el) into refBiblio6;
+
+INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    7, 'Lorraine', TABEXEMPLAIRES_T(refExm4, refExm3), '33  boulevard Gustave Eiffel', 'VERDUN'
+    ))
+    returning ref(el) into refBiblio7;
+
+INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    8, 'Provence-Alpes-Côte d Azur', TABEXEMPLAIRES_T(refExm5, refExm6), '99  rue Reine Elisabeth', 'MENTON'
+    ))
+    returning ref(el) into refBiblio8;
+
+INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    9, 'Île-de-France', TABEXEMPLAIRES_T(refExm7, refExm8), '63  Square de la Couronne', 'PARIS'
+    ))
+    returning ref(el) into refBiblio9;
+
+INSERT INTO BIBLIOTHEQUE_O el VALUES (
+            BIBLIOTHEQUE_T(
+    10, 'Nord-Pas-de-Calais', TABEXEMPLAIRES_T(refExm9), '32  Rue Hubert de Lisle', 'LOOS'
+    ))
+    returning ref(el) into refBiblio10;
+
 END;
 /
