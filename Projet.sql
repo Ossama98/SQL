@@ -536,5 +536,125 @@ INSERT INTO EXEMPLAIRE_O ex VALUES (
     ))
     returning ref(ex) into refExm10;
     
+--EMPRUNT    
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    1, refAdh1, to_date('21/01/2020', 'DD-MM-YYYY'), to_date('21/02/2020', 'DD-MM-YYYY'), to_date('15/02/2020', 'DD-MM-YYYY'), refExm1
+    ));
+    
+
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    2, refAdh2, to_date('19/04/2020', 'DD-MM-YYYY'), to_date('19/05/2020', 'DD-MM-YYYY'), to_date('13/05/2020', 'DD-MM-YYYY'), refExm2
+    ));
+    
+
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    3, refAdh3, to_date('05/02/2020', 'DD-MM-YYYY'), to_date('05/03/2020', 'DD-MM-YYYY'), to_date('01/03/2020', 'DD-MM-YYYY'), refExm3
+    ));
+    
+
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    4, refAdh4, to_date('30/03/2020', 'DD-MM-YYYY'), to_date('30/04/2020', 'DD-MM-YYYY'), to_date('25/04/2020', 'DD-MM-YYYY'), refExm4
+    ));
+    
+
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    5, refAdh5, to_date('06/08/2020', 'DD-MM-YYYY'), to_date('06/09/2020', 'DD-MM-YYYY'), to_date('01/09/2020', 'DD-MM-YYYY'), refExm5
+    ));
+    
+
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    6, refAdh6, to_date('04/04/2020', 'DD-MM-YYYY'), to_date('04/05/2020', 'DD-MM-YYYY'), to_date('01/05/2020', 'DD-MM-YYYY'), refExm6
+    ));
+    
+
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    7, refAdh7, to_date('06/08/2020', 'DD-MM-YYYY'), to_date('06/09/2020', 'DD-MM-YYYY'), to_date('01/09/2020', 'DD-MM-YYYY'), refExm7
+    ));
+    
+
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    8, refAdh8, to_date('26/01/2020', 'DD-MM-YYYY'), to_date('26/02/2020', 'DD-MM-YYYY'), to_date('19/02/2020', 'DD-MM-YYYY'), refExm8
+    ));
+    
+
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    9, refAdh9, to_date('26/08/2020', 'DD-MM-YYYY'), to_date('26/09/2020', 'DD-MM-YYYY'), to_date('23/09/2020', 'DD-MM-YYYY'), refExm9
+    ));
+    
+
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    10, refAdh10, to_date('10/06/2020', 'DD-MM-YYYY'), to_date('10/07/2020', 'DD-MM-YYYY'), to_date('05/07/2020', 'DD-MM-YYYY'), refExm10
+    ));
+    
+
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    11, refAdh11, to_date('14/05/2020', 'DD-MM-YYYY'), to_date('14/06/2020', 'DD-MM-YYYY'), to_date('10/06/2020', 'DD-MM-YYYY'), refExm1
+    ));
+    
+
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    12, refAdh12, to_date('11/01/2020', 'DD-MM-YYYY'), to_date('11/08/2020', 'DD-MM-YYYY'), to_date('01/08/2020', 'DD-MM-YYYY'), refExm2
+    ));
+    
+
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    13, refAdh13, to_date('23/04/2020', 'DD-MM-YYYY'), to_date('23/05/2020', 'DD-MM-YYYY'), to_date('01/05/2020', 'DD-MM-YYYY'), refExm3
+    ));
+    
+
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    14, refAdh14, to_date('16/01/2020', 'DD-MM-YYYY'), to_date('16/02/2020', 'DD-MM-YYYY'), to_date('01/02/2020', 'DD-MM-YYYY'), refExm4
+    ));
+    
+
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    15, refAdh15, to_date('07/06/2020', 'DD-MM-YYYY'), to_date('07/07/2020', 'DD-MM-YYYY'), to_date('01/07/2020', 'DD-MM-YYYY'), refExm5
+    ));
+    
+
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    16, refAdh16, to_date('23/06/2020', 'DD-MM-YYYY'), to_date('23/07/2020', 'DD-MM-YYYY'), null, refExm5
+    ));
+    
+
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    17, refAdh17, to_date('20/08/2020', 'DD-MM-YYYY'), to_date('20/09/2020', 'DD-MM-YYYY'), null, refExm6
+    ));
+    
+
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    18, refAdh18, to_date('09/05/2020', 'DD-MM-YYYY'), to_date('09/06/2020', 'DD-MM-YYYY'), null, refExm7
+    ));
+    
+
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    19, refAdh19, to_date('23/04/2020', 'DD-MM-YYYY'), to_date('23/07/2020', 'DD-MM-YYYY'), null, refExm8
+    ));
+    
+
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    20, refAdh20, to_date('05/05/2020', 'DD-MM-YYYY'), to_date('05/06/2020', 'DD-MM-YYYY'), null, refExm9
+    ));
+    
 END;
 /
