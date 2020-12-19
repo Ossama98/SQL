@@ -46,7 +46,7 @@ MAP MEMBER FUNCTION compID return NUMBER -- comparer avec ID croissant
 );
 /
 
-CREATE OR REPLACE TYPE TABEXEMPLAIRES_T AS TABLE OF EXEMPLAIRE_T
+CREATE OR REPLACE TYPE TABEXEMPLAIRES_T AS TABLE OF REF EXEMPLAIRE_T
 /
 
 CREATE OR REPLACE TYPE BIBLIOTHEQUE_T AS OBJECT(
@@ -110,11 +110,7 @@ MAP MEMBER FUNCTION compNomPrenomsNaissance return VARCHAR2 -- comparer avec NOM
 
 );
 /
-
---CREATE OR REPLACE TYPE TAB_REF_BIBLIOTHEQUE_T AS TABLE OF REF BIBLIOTHEQUE_T
---/
-
--- Création des tables
+------------------ Création des tables -----------------------------------------
 CREATE TABLE CATALOGUE_O OF CATALOGUE_T(
 CONSTRAINT PK_CATALOGUE_O_CATNO PRIMARY KEY(CATNO),
 CONSTRAINT NNL_CATALOGUE_O_TITRE TITRE NOT NULL 
@@ -383,7 +379,7 @@ INSERT INTO ADHERENT_O ad VALUES (
     ))
     returning ref(ad) into refAdh20;
     
---CATALOGUE
+---------------------------------CATALOGUE----------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO CATALOGUE_O ca VALUES (
     CATALOGUE_T(1,'LE PETIT PRINCE',to_date('06/04/1943','DD/MM/YYYY'),'Gallimard',null,null))
     returning ref(ca) into refCat1;
@@ -424,7 +420,7 @@ INSERT INTO CATALOGUE_O ca VALUES (
     CATALOGUE_T(10,'LIVRE10',to_date('02/06/1995','DD/MM/YYYY'),'MAISON10',null,null))
     returning ref(ca) into refCat10;
     
---AUTTEUR    
+---------------------------AUTTEUR------------------------------------------------------------------------------------------------------------------------------------------------------
     
 INSERT INTO AUTEUR_O ad VALUES (
             AUTEUR_T(
@@ -469,7 +465,7 @@ INSERT INTO AUTEUR_O ad VALUES (
     ))
     returning ref(ad) into refAut7;
     
---EXAMPLAIRES
+---------------------- EXAMPLAIRES ------------------------------------------------------------------------------------------------------------------------------------------
     
 INSERT INTO EXEMPLAIRE_O ex VALUES (
             EXEMPLAIRE_T(
