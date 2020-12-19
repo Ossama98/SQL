@@ -106,9 +106,16 @@ DATE_DE_DECES               DATE,
 NATIONALITE                 VARCHAR(20),
 VILLE                       VARCHAR(20),
 BIOGRAPHIE                  CLOB,
-MAP MEMBER FUNCTION compNomPrenomsNaissance return VARCHAR2 -- comparer avec NOM||PRENOM||DATE_DE_NAISSANCE
-
+--MAP MEMBER FUNCTION compNomPrenomsNaissance return VARCHAR2 -- comparer avec NOM||PRENOMS||DATE_DE_NAISSANCE
+MAP MEMBER FUNCTION compNomPrenomNaissance return VARCHAR2 -- comparer avec NOM||PREMIER PRENOM||DATE_DE_NAISSANCE
 );
+/
+CREATE OR REPLACE TYPE BODY AUTEUR_T IS 
+MAP MEMBER FUNCTION compNomPrenomNaissance RETURN VARCHAR2 IS
+    BEGIN
+        RETURN NOM||PRENOMS(1)||DATE_DE_NAISSANCE;
+    END;
+END;
 /
 ------------------ Création des tables -----------------------------------------
 CREATE TABLE CATALOGUE_O OF CATALOGUE_T(
@@ -194,7 +201,8 @@ CREATE INDEX IDX_CATALOGUE_NESTED_TABLE_ID ON TABLE_REF_AUTEURS(NESTED_TABLE_ID,
 CREATE INDEX IDX_UNIQUE_BIBLIOTHEQUE_REGION ON BIBLIOTHEQUE_O(REGION);
 
 --INDEXES EXEMPLAIRE
-CREATE INDEX IDX_UNIQUE_EXEMPLAIRE_REF_CATALOGUE ON EXEMPLAIRE  _O(REF_CATALOGUE);
+-- Impossible de créer un index sur une référence...
+-- CREATE INDEX IDX_UNIQUE_EXEMPLAIRE_REF_CATALOGUE ON EXEMPLAIRE_O(REF_CATALOGUE);
 
 -------------------- Insertion des adherents ---------------------------------------
 
