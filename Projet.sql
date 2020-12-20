@@ -153,16 +153,23 @@ DATE_DE_DECES               DATE,
 NATIONALITE                 VARCHAR(20),
 VILLE                       VARCHAR(20),
 BIOGRAPHIE                  CLOB,
-MAP MEMBER FUNCTION compNomPrenomNaissance return VARCHAR2 -- comparer avec NOM||PREMIER PRENOM||DATE_DE_NAISSANCE
+MAP MEMBER FUNCTION compNomPrenomNaissance return VARCHAR2, -- comparer avec NOM||PREMIER PRENOM||DATE_DE_NAISSANCE
+MEMBER FUNCTION getAuteur return AUTEUR_T
 );
 /
 CREATE OR REPLACE TYPE BODY AUTEUR_T IS 
+    MEMBER FUNCTION getAuteur return AUTEUR_T IS
+    BEGIN
+        return self;
+    END;
+    
     MAP MEMBER FUNCTION compNomPrenomNaissance RETURN VARCHAR2 IS
     BEGIN
         RETURN NOM||PRENOMS(1)||DATE_DE_NAISSANCE;
     END;
 END;
 /
+
 ------------------ Création des tables -----------------------------------------
 CREATE TABLE CATALOGUE_O OF CATALOGUE_T(
 CONSTRAINT PK_CATALOGUE_O_CATNO PRIMARY KEY(CATNO),
@@ -809,3 +816,20 @@ INSERT INTO EMPRUNT_O VALUES (
 END;
 /
 
+------------------------------------------------TEST --------------------------------------------------------------------------------------
+--- Test de la méthode getAuteur
+set serveroutput on
+declare
+aut1 AUTEUR_T;
+aut2 AUTEUR_T;
+BEGIN
+    SELECT VALUE(aut) INTO aut1 FROM Auteur_O aut WHERE ID=1;
+    aut2 := aut1.getAuteur;
+    dbms_output.put_line('aut1.NOM='||aut1.NOM);
+	dbms_output.put_line('aut2.NOM='||aut2.NOM);
+	EXCEPTION
+		WHEN OTHERS THEN
+				dbms_output.put_line('sqlcode='||sqlcode);
+				dbms_output.put_line('sqlerrm='||sqlerrm);
+END;
+/
