@@ -815,7 +815,7 @@ INSERT INTO EMPRUNT_O VALUES (
     
 END;
 /
-
+COMMIT;
 ------------------------------------------------TEST --------------------------------------------------------------------------------------
 --- Test de la méthode getAuteur
 set serveroutput on
@@ -833,3 +833,4 @@ BEGIN
 				dbms_output.put_line('sqlerrm='||sqlerrm);
 END;
 /
+COMMIT;
