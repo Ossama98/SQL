@@ -59,6 +59,20 @@ MAP MEMBER FUNCTION compRegionVille return VARCHAR2, -- comparer avec région||v
 MEMBER PROCEDURE ajoutExemplaire(exemplaire in EXEMPLAIRE_T)
 );
 /
+CREATE OR REPLACE TYPE BODY BIBLIOTHEQUE_T AS 
+MAP MEMBER FUNCTION compRegionVille RETURN VARCHAR2 IS
+    BEGIN
+        RETURN REGION||VILLE;
+    END;
+    
+    MEMBER PROCEDURE ajoutExemplaire(exemplaire in EXEMPLAIRE_T) IS
+    BEGIN
+        null;
+    END;
+
+END;
+/
+
 
 CREATE OR REPLACE TYPE ADHERENT_T
 /
