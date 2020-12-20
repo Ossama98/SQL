@@ -34,17 +34,50 @@ ANNEE_EDITION       DATE,
 MAISON_EDITION      VARCHAR2(20),
 REF_AUTEURS         TAB_REF_AUTEURS_T,
 DESCRIPTIONS        CLOB,
-MAP MEMBER FUNCTION compAnneeEDITION return DATE,  -- comparer avec ANNEE_EDITION décroissant
-MEMBER PROCEDURE consulterAuteurs  
+ORDER MEMBER FUNCTION compAnneeEDITION(CA CATALOGUE_T) return NUMBER,  -- comparer avec ANNEE_EDITION décroissant
+MEMBER FUNCTION consulterAuteurs return TAB_REF_AUTEURS_T
 );
 /
-
+CREATE OR REPLACE TYPE BODY CATALOGUE_T AS
+    ORDER MEMBER FUNCTION compAnneeEDITION(CA CATALOGUE_T) RETURN NUMBER IS
+    BEGIN
+        IF ANNEE_EDITION < CA.ANNEE_EDITION THEN
+           RETURN 1;  --SI ON VEUT COMPARER PAR ORDRE CROISSANT RETURN -1
+        ELSIF ANNEE_EDITION > CA.ANNEE_EDITION THEN
+            RETURN -1;   --SI ON VEUT COMPARER PAR ORDRE CROISSANT RETURN 1
+        ELSE
+            RETURN 0;
+        END IF;
+    END;
+    
+    MEMBER FUNCTION consulterAuteurs return TAB_REF_AUTEURS_T IS
+    BEGIN
+        return REF_AUTEURS;
+    END;
+END;
+/
+    
+    
 CREATE OR REPLACE TYPE EXEMPLAIRE_T AS OBJECT(
 EXNO                  NUMBER(4),
 REF_CATALOGUE         REF CATALOGUE_T,
-MAP MEMBER FUNCTION compID return NUMBER -- comparer avec ID croissant
+ORDER MEMBER FUNCTION compID(E EXEMPLAIRE_T) return NUMBER -- comparer avec ID croissant
 );
 /
+CREATE OR REPLACE TYPE BODY EXEMPLAIRE_T AS
+    ORDER MEMBER FUNCTION compID(E EXEMPLAIRE_T) return NUMBER IS
+    BEGIN
+        IF EXNO < E.EXNO THEN
+           RETURN -1 ;  --SI ON VEUT COMPARER PAR ORDRE DÉCROISSANT RETURN 1
+        ELSIF EXNO > E.EXNO THEN
+            RETURN 1;   --SI ON VEUT COMPARER PAR ORDRE DÉCROISSANT RETURN -1
+        ELSE
+            RETURN 0;
+        END IF;
+    END;
+END;
+/
+
 
 CREATE OR REPLACE TYPE TABEXEMPLAIRES_T AS TABLE OF REF EXEMPLAIRE_T
 /
@@ -60,7 +93,7 @@ MEMBER PROCEDURE ajoutExemplaire(exemplaire in EXEMPLAIRE_T)
 );
 /
 CREATE OR REPLACE TYPE BODY BIBLIOTHEQUE_T AS 
-MAP MEMBER FUNCTION compRegionVille RETURN VARCHAR2 IS
+    MAP MEMBER FUNCTION compRegionVille RETURN VARCHAR2 IS
     BEGIN
         RETURN REGION||VILLE;
     END;
@@ -120,12 +153,11 @@ DATE_DE_DECES               DATE,
 NATIONALITE                 VARCHAR(20),
 VILLE                       VARCHAR(20),
 BIOGRAPHIE                  CLOB,
---MAP MEMBER FUNCTION compNomPrenomsNaissance return VARCHAR2 -- comparer avec NOM||PRENOMS||DATE_DE_NAISSANCE
 MAP MEMBER FUNCTION compNomPrenomNaissance return VARCHAR2 -- comparer avec NOM||PREMIER PRENOM||DATE_DE_NAISSANCE
 );
 /
 CREATE OR REPLACE TYPE BODY AUTEUR_T IS 
-MAP MEMBER FUNCTION compNomPrenomNaissance RETURN VARCHAR2 IS
+    MAP MEMBER FUNCTION compNomPrenomNaissance RETURN VARCHAR2 IS
     BEGIN
         RETURN NOM||PRENOMS(1)||DATE_DE_NAISSANCE;
     END;
@@ -213,15 +245,15 @@ CREATE INDEX IDX_UNIQUE_AUTEUR_NATIONALITE ON AUTEUR_O(NATIONALITE);
 
 --INDEXES CATALOGUE
 CREATE INDEX IDX_CATALOGUE_NESTED_TABLE_ID ON TABLE_REF_AUTEURS(NESTED_TABLE_ID, COLUMN_VALUE);
+CREATE INDEX IDX_UNIQUE_TITRE ON CATALOGUE_O(TITRE);
 
 --INDEXES BIBLIOTHEQUE
 CREATE INDEX IDX_UNIQUE_BIBLIOTHEQUE_REGION ON BIBLIOTHEQUE_O(REGION);
 
 --INDEXES EXEMPLAIRE
 CREATE INDEX IDX_UNIQUE_EXEMPLAIRE_REF_CATALOGUE ON EXEMPLAIRE_O(REF_CATALOGUE);
-
+ 
 -------------------- Insertion des adherents ---------------------------------------
-
 DECLARE
 refAdh1 REF ADHERENT_T;
 refAdh2 REF ADHERENT_T;
@@ -273,6 +305,7 @@ refAut4 REF AUTEUR_T;
 refAut5 REF AUTEUR_T;
 refAut6 REF AUTEUR_T;
 refAut7 REF AUTEUR_T;
+refAut8 REF AUTEUR_T;
 
 refBiblio1 REF BIBLIOTHEQUE_T;
 refBiblio2 REF BIBLIOTHEQUE_T;
@@ -287,7 +320,56 @@ refBiblio10 REF BIBLIOTHEQUE_T;
 
 BEGIN
     
----------------------------------CATALOGUE----------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------AUTEUR----------------------------------------------------------------------------------------------------------------------------------------
+INSERT INTO AUTEUR_O ad VALUES (
+            AUTEUR_T(
+    1, 'GIRARD', TABPRENOMS_T('Paul', 'P'), to_date('06/12/1990', 'DD/MM/YYYY'), to_date('24/05/2019',  'DD-MM-YYYY'), 'FRANCAIS', 'Nice', null
+    ))
+    returning ref(ad) into refAut1;
+    
+    INSERT INTO AUTEUR_O ad VALUES (
+            AUTEUR_T(
+    2, 'GUILLOU', TABPRENOMS_T('Pierre', 'Pépé'), to_date('07/12/1999', 'DD/MM/YYYY'), to_date('24/12/2010',  'DD-MM-YYYY'), 'HONGROIS', 'Boston', null
+    ))
+    returning ref(ad) into refAut2;
+    
+    INSERT INTO AUTEUR_O ad VALUES (
+            AUTEUR_T(
+    3, 'JACOB', TABPRENOMS_T('Robin', 'Piedro'), to_date('23/10/1999', 'DD/MM/YYYY'), to_date('24/09/2018',  'DD-MM-YYYY'), 'JAPONAIS', 'Londre', null
+    ))
+    returning ref(ad) into refAut3;
+
+INSERT INTO AUTEUR_O ad VALUES (
+            AUTEUR_T(
+    4, 'NOUILLE', TABPRENOMS_T('Crabi', 'Poulet'), to_date('06/12/2000', 'DD/MM/YYYY'), to_date('24/06/2019',  'DD-MM-YYYY'), 'FRANCAIS', 'Nice', null
+    ))
+    returning ref(ad) into refAut4;
+
+INSERT INTO AUTEUR_O ad VALUES (
+            AUTEUR_T(
+    5, 'UNDEAD', TABPRENOMS_T('Jacques', 'P'), to_date('29/04/1899', 'DD/MM/YYYY'), to_date('29/04/1999', 'DD/MM/YYYY'), 'FRANCAIS', 'Nice', null
+    ))
+    returning ref(ad) into refAut5;
+
+INSERT INTO AUTEUR_O ad VALUES (
+            AUTEUR_T(
+    6, 'LAGALLY', TABPRENOMS_T('Jacqueline', 'Micheline'), to_date('06/12/1990', 'DD/MM/YYYY'), to_date('14/02/1976', 'DD/MM/YYYY'), 'RUSSE', 'Rostov-sur-le-Don', null
+    ))
+    returning ref(ad) into refAut6;
+
+
+INSERT INTO AUTEUR_O ad VALUES (
+            AUTEUR_T(
+    7, 'KOUNA', TABPRENOMS_T('Boson', 'Odette'), to_date('15/03/0001', 'DD/MM/YYYY'), to_date('03/11/1955', 'DD/MM/YYYY'), 'GRECQUE', 'Athena s Temple', null
+    ))
+    returning ref(ad) into refAut7;
+INSERT INTO AUTEUR_O ad VALUES (
+            AUTEUR_T(
+    8, 'UNDEAD', TABPRENOMS_T('Jacques', 'P'), to_date('28/04/1899', 'DD/MM/YYYY'), to_date('29/04/1999', 'DD/MM/YYYY'), 'FRANCAIS', 'Nice', null
+    ))
+    returning ref(ad) into refAut8;
+    
+---------------------------CATALOGUE------------------------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO CATALOGUE_O ca VALUES (
     CATALOGUE_T(1,'LE PETIT PRINCE',to_date('06/04/1943','DD/MM/YYYY'),'Gallimard',TAB_REF_AUTEURS_T(refAut1),null))
     returning ref(ca) into refCat1;
@@ -326,52 +408,7 @@ INSERT INTO CATALOGUE_O ca VALUES (
 
 INSERT INTO CATALOGUE_O ca VALUES (
     CATALOGUE_T(10,'LIVRE10',to_date('02/06/1995','DD/MM/YYYY'),'MAISON10',TAB_REF_AUTEURS_T(refAut4, refAut7),null))
-    returning ref(ca) into refCat10;
-    
----------------------------AUTTEUR------------------------------------------------------------------------------------------------------------------------------------------------------
-    
-INSERT INTO AUTEUR_O ad VALUES (
-            AUTEUR_T(
-    1, 'GIRARD', TABPRENOMS_T('Paul', 'P'), to_date('06/12/1990', 'DD/MM/YYYY'), to_date('24/05/2019',  'DD-MM-YYYY'), 'FRANCAIS', 'Nice', null
-    ))
-    returning ref(ad) into refAut1;
-    
-    INSERT INTO AUTEUR_O ad VALUES (
-            AUTEUR_T(
-    2, 'GUILLOU', TABPRENOMS_T('Pierre', 'Pépé'), to_date('07/12/1999', 'DD/MM/YYYY'), to_date('24/12/2010',  'DD-MM-YYYY'), 'HONGROIS', 'Boston', null
-    ))
-    returning ref(ad) into refAut2;
-    
-    INSERT INTO AUTEUR_O ad VALUES (
-            AUTEUR_T(
-    3, 'JACOB', TABPRENOMS_T('Robin', 'Piedro'), to_date('23/10/1999', 'DD/MM/YYYY'), to_date('24/09/2018',  'DD-MM-YYYY'), 'JAPONAIS', 'Londre', null
-    ))
-    returning ref(ad) into refAut3;
-
-INSERT INTO AUTEUR_O ad VALUES (
-            AUTEUR_T(
-    4, 'NOUILLE', TABPRENOMS_T('Crabi', 'Poulet'), to_date('06/12/2000', 'DD/MM/YYYY'), to_date('24/06/2019',  'DD-MM-YYYY'), 'FRANCAIS', 'Nice', null
-    ))
-    returning ref(ad) into refAut4;
-
-INSERT INTO AUTEUR_O ad VALUES (
-            AUTEUR_T(
-    5, 'UNDEAD', TABPRENOMS_T('Jacques', 'P'), to_date('29/04/1899', 'DD/MM/YYYY'), to_date('29/04/1999', 'DD/MM/YYYY'), 'FRANCAIS', 'Nice', null
-    ))
-    returning ref(ad) into refAut5;
-
-INSERT INTO AUTEUR_O ad VALUES (
-            AUTEUR_T(
-    6, 'LAGALLY', TABPRENOMS_T('Jacqueline', 'Micheline'), to_date('06/12/1990', 'DD/MM/YYYY'), null, 'RUSSE', 'Rostov-sur-le-Don', null
-    ))
-    returning ref(ad) into refAut6;
-
-
-INSERT INTO AUTEUR_O ad VALUES (
-            AUTEUR_T(
-    7, 'KOUNA', TABPRENOMS_T('Boson', 'Odette'), to_date('15/03/0001', 'DD/MM/YYYY'), null, 'GRECQUE', 'Athena s Temple', null
-    ))
-    returning ref(ad) into refAut7;
+    returning ref(ca) into refCat10;    
     
 ---------------------- EXAMPLAIRES ------------------------------------------------------------------------------------------------------------------------------------------
     
@@ -448,7 +485,7 @@ INSERT INTO EXEMPLAIRE_O ex VALUES (
 
 INSERT INTO BIBLIOTHEQUE_O el VALUES (
             BIBLIOTHEQUE_T(
-    1, 'Ile-de-France', TABEXEMPLAIRES_T(refExm6, refExm8), '65  Faubourg Saint Honoré', 'PARIS'
+    1, 'Île-de-France', TABEXEMPLAIRES_T(refExm6, refExm8), '65  Faubourg Saint Honoré', 'PARIS'
     ))
     returning ref(el) into refBiblio1;
     
@@ -768,5 +805,7 @@ INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
     20, refAdh20, to_date('05/05/2020', 'DD-MM-YYYY'), to_date('05/06/2020', 'DD-MM-YYYY'), null, refExm9
     ));
+    
 END;
 /
+
