@@ -965,8 +965,11 @@ WHERE ID = 5;
 
 --Suppression de l'adhérent numéro 3
 DECLARE
-adh1    ADHERENT_T;
+adh1    REF ADHERENT_T;
 BEGIN
-    DELETE from ADHERENT_O WHERE NUMERO_ADHERENT= 3 ;
+    DELETE from ADHERENT_O ad WHERE NUMERO_ADHERENT= 3 
+    returning ref(ad) into adh1;
+    
+    DELETE from EMPRUNT_O emp where emp.REF_ADHERENT=adh1;
 END;
 /
