@@ -930,17 +930,13 @@ FROM ADHERENT_O ad , TABLE(ad.REF_BIBLIOTHEQUE) adRef
 where adRef.column_value.NOM =  'BIBLIOTHEQUE_1' ;
 
 --Rechercher tous les exemplaires qui ne sont pas encore retournés et sont donc en retard(date de fin de l'emprunt du livre dépassé sans que l'adhérent retourne le livre)
-SELECT  emp.REF_EXEMPLAIRE.EXNO AS ID_EXEMPLAIRE, 
-        emp.REF_EXEMPLAIRE.REF_CATALOGUE.TITRE AS TITRE ,
-        COUNT(emp.REF_EXEMPLAIRE) AS EXEMPLAIRE_EN_RETARD
+SELECT  emp.REF_EXEMPLAIRE.EXNO AS ID_EXEMPLAIRE, emp.REF_EXEMPLAIRE.REF_CATALOGUE.TITRE AS TITRE , COUNT(emp.REF_EXEMPLAIRE) AS EXEMPLAIRE_EN_RETARD
 FROM EMPRUNT_O emp
 WHERE emp.testRetard()=1
 GROUP BY emp.REF_EXEMPLAIRE;
 
 --Rechercher tous les exemplaires avec un emprunt valide(les exemplaires qui ne sont pas encore retournés mais qui ne sont pas en retard(date de fin de l'emprunt du livre pas encore dépassé))
-SELECT  emp.REF_EXEMPLAIRE.EXNO AS ID_EXEMPLAIRE, 
-        emp.REF_EXEMPLAIRE.REF_CATALOGUE.TITRE AS TITRE ,
-        COUNT(emp.REF_EXEMPLAIRE) AS EMPRUNT_VALIDE
+SELECT emp.REF_EXEMPLAIRE.EXNO AS ID_EXEMPLAIRE, emp.REF_EXEMPLAIRE.REF_CATALOGUE.TITRE AS TITRE ,COUNT(emp.REF_EXEMPLAIRE) AS EMPRUNT_VALIDE
 FROM EMPRUNT_O emp
 WHERE emp.DATE_END > CURRENT_DATE AND DATE_RETOUR IS NULL
 GROUP BY emp.REF_EXEMPLAIRE;
@@ -951,13 +947,26 @@ FROM EMPRUNT_O emp
 Group by emp.REF_ADHERENT;
 
 ------------------------------------------------Requêtes de mises à jour et suppression --------------------------------------------------------------------------------------
---Mettre à jour le numéro de téléphone de l'adhérent Martin
+--Mettre à jour le numéro de téléphone de l'adhérent numéro 2
 UPDATE ADHERENT_O
 SET PHONE = '+33-675-437-880'
-WHERE NOM = 'Martin';
+WHERE NUMERO_ADHERENT = 2;
 
 --Mise à jour d'un champ VARRAY
 UPDATE AUTEUR_O
 SET PRENOMS = TABPRENOMS_T('Grizou','Pogba')
-WHERE NOM = 'GIRARD';
+WHERE ID = 1;
 
+--Update la date_end  de l'emprunt numéro 5
+UPDATE EMPRUNT_O
+SET DATE_END = DATE_END + 2
+WHERE ID = 5;
+
+
+--Suppression de l'adhérent numéro 3
+DECLARE
+adh1    ADHERENT_T;
+BEGIN
+    DELETE from ADHERENT_O WHERE NUMERO_ADHERENT= 3 ;
+END;
+/
