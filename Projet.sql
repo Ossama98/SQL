@@ -335,6 +335,7 @@ refExm7 REF EXEMPLAIRE_T;
 refExm8 REF EXEMPLAIRE_T;
 refExm9 REF EXEMPLAIRE_T;
 refExm10 REF EXEMPLAIRE_T;
+refExm11 REF EXEMPLAIRE_T;
 
 refAut1 REF AUTEUR_T;
 refAut2 REF AUTEUR_T;
@@ -429,7 +430,7 @@ INSERT INTO CATALOGUE_O ca VALUES (
     returning ref(ca) into refCat5;      
  
 INSERT INTO CATALOGUE_O ca VALUES (
-    CATALOGUE_T(6,'LIVRE5',to_date('09/01/1997','DD/MM/YYYY'),'MAISON6',TAB_REF_AUTEURS_T(refAut6),null))
+    CATALOGUE_T(6,'LIVRE6',to_date('09/01/1997','DD/MM/YYYY'),'MAISON6',TAB_REF_AUTEURS_T(refAut6),null))
     returning ref(ca) into refCat6;      
  
 INSERT INTO CATALOGUE_O ca VALUES (
@@ -519,11 +520,16 @@ INSERT INTO EXEMPLAIRE_O ex VALUES (
     ))
     returning ref(ex) into refExm10;
 
+INSERT INTO EXEMPLAIRE_O ex VALUES (
+            EXEMPLAIRE_T(
+    11, refCat6
+    ))
+    returning ref(ex) into refExm11;
 ---------------------------BIBLIOTHEQUE------------------------------------------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO BIBLIOTHEQUE_O el VALUES (
             BIBLIOTHEQUE_T(
-    1, 'Île-de-France', TABEXEMPLAIRES_T(refExm6, refExm8), '65  Faubourg Saint Honoré', 'PARIS'
+    1, 'Île-de-France', TABEXEMPLAIRES_T(refExm6, refExm8, refExm11), '65  Faubourg Saint Honoré', 'PARIS'
     ))
     returning ref(el) into refBiblio1;
     
@@ -865,3 +871,20 @@ BEGIN
 END;
 /
 COMMIT;
+
+------------------------------------------------Requêtes --------------------------------------------------------------------------------------
+--Rechercher tous les exemplaires dans certaine bibliothèque par le titre de catalogue et l’id de bibliothèque
+SELECT exs.column_value.EXNO
+FROM BIBLIOTHEQUE_O b, TABLE(b.EXEMPLAIRES) exs 
+WHERE b.id = 1 AND exs.column_value.REF_CATALOGUE.TITRE = 'LIVRE6';
+
+
+--Rechercher tous les catalogues par le nom d’auteur
+SELECT c.TITRE 
+FROM CATALOGUE_O c, TABLE(c.REF_AUTEURS) a 
+WHERE a.column_value.NOM = 'GIRARD';
+
+--Rechercher tous les exemplaires dans certaine bibliothèque par le nom d’auteur
+SELECT exs.column_value.EXNO, exs.column_value.REF_CATALOGUE.TITRE 
+FROM BIBLIOTHEQUE_O b, TABLE(b.EXEMPLAIRES) exs, TABLE(exs.column_value.REF_CATALOGUE.REF_AUTEURS) a
+WHERE b.id = 1 AND a.column_value.NOM = 'GIRARD';
