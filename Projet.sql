@@ -449,11 +449,11 @@ INSERT INTO CATALOGUE_O CA VALUES (
     RETURNING REF(CA) INTO REFCAT9;      
 
 INSERT INTO CATALOGUE_O CA VALUES (
-    CATALOGUE_T(10,'LIVRE10',TO_DATE('02/06/1995','DD/MM/YYYY'),'MAISON10',TAB_REF_AUTEURS_T(REFAUT4, REFAUT7),NULL))
+    CATALOGUE_T(10,'LIVRE10',TO_DATE('02/06/1995','DD/MM/YYYY'),'Gallimard',TAB_REF_AUTEURS_T(REFAUT4, REFAUT7),NULL))
     RETURNING REF(CA) INTO REFCAT10;    
     
 INSERT INTO CATALOGUE_O CA VALUES (
-    CATALOGUE_T(11,'LIVRE11',TO_DATE('02/05/1998','DD/MM/YYYY'),'MAISON11',TAB_REF_AUTEURS_T(REFAUT2, REFAUT4),NULL))
+    CATALOGUE_T(11,'LIVRE11',TO_DATE('02/05/1998','DD/MM/YYYY'),'Gallimard',TAB_REF_AUTEURS_T(REFAUT2, REFAUT4),NULL))
     RETURNING REF(CA) INTO REFCAT11;   
     
 ---------------------- EXAMPLAIRES ------------------------------------------------------------------------------------------------------------------------------------------
@@ -670,21 +670,21 @@ INSERT INTO ADHERENT_O AD VALUES (
 
 INSERT INTO ADHERENT_O AD VALUES (
             ADHERENT_T(
-    11, 'Simon', LIST_PRENOMS_T('Maël', 'M'), TAB_REF_BIBLIOTHEQUES_T(REFBIBLIO1), '36 impasse Blanc', '+33-700-555-172', 'gator@msn.fr', TO_DATE('27/02/1970', 'DD/MM/YYYY'), TO_DATE('20/07/2015', 'DD-MM-YYYY'), 'Nice'
+    11, 'Loic', LIST_PRENOMS_T('Maël', 'M'), TAB_REF_BIBLIOTHEQUES_T(REFBIBLIO1), '36 impasse Blanc', '+33-700-555-172', 'gator@msn.fr', TO_DATE('27/02/1970', 'DD/MM/YYYY'), TO_DATE('20/07/2015', 'DD-MM-YYYY'), 'Nice'
     ))
     RETURNING REF(AD) INTO REFADH11;
     
 
 INSERT INTO ADHERENT_O AD VALUES (
             ADHERENT_T(
-    12, 'Michel', LIST_PRENOMS_T('Jules', 'J'), TAB_REF_BIBLIOTHEQUES_T(REFBIBLIO2), '37 place Lemaire', '+33-655-531-855', 'psharpe@verizon.fr', TO_DATE('05/04/1966', 'DD/MM/YYYY'), TO_DATE('23/12/2016', 'DD-MM-YYYY'), 'Nice'
+    12, 'Loic', LIST_PRENOMS_T('Jules', 'J'), TAB_REF_BIBLIOTHEQUES_T(REFBIBLIO10, REFBIBLIO1), '37 place Lemaire', '+33-655-531-855', 'psharpe@verizon.fr', TO_DATE('05/04/1966', 'DD/MM/YYYY'), TO_DATE('23/12/2016', 'DD-MM-YYYY'), 'Nice'
     ))
     RETURNING REF(AD) INTO REFADH12;
     
 
 INSERT INTO ADHERENT_O AD VALUES (
             ADHERENT_T(
-    13, 'Lefebvre', LIST_PRENOMS_T('Hugo', 'J'), TAB_REF_BIBLIOTHEQUES_T(REFBIBLIO3), '38 rue Simon', '+33-700-555-300', 'fangorn@mac.fr', TO_DATE('10/04/1971', 'DD/MM/YYYY'), TO_DATE('03/09/2017', 'DD-MM-YYYY'), 'Nice'
+    13, 'Loic', LIST_PRENOMS_T('Hugo', 'J'), TAB_REF_BIBLIOTHEQUES_T(REFBIBLIO3), '38 rue Simon', '+33-700-555-300', 'fangorn@mac.fr', TO_DATE('10/04/1971', 'DD/MM/YYYY'), TO_DATE('03/09/2017', 'DD-MM-YYYY'), 'Nice'
     ))
     RETURNING REF(AD) INTO REFADH13;
     
@@ -962,8 +962,13 @@ UPDATE EMPRUNT_O
 SET DATE_END = DATE_END + 2
 WHERE ID = 5;
 
+--Gloire au trémas, mais pas partout... Update le nom en rajoutant le trémas à 'Loic' si il est adhérent dans une Bibliothèque
+UPDATE ADHERENT_O adh
+SET adh.NOM = 'Loïc'
+WHERE adh.NOM = 'Loic' AND adh.REF_BIBLIOTHEQUES IS NOT NULL;
 
---Suppression de l'adhérent numéro 3
+
+--Suppression de l'adhérent numéro 3 et ses emprunts associées
 DECLARE
 ADH1    REF ADHERENT_T;
 BEGIN
@@ -973,3 +978,9 @@ BEGIN
     DELETE FROM EMPRUNT_O EMP WHERE EMP.REF_ADHERENT=ADH1;
 END;
 /
+
+--Suppression de tous les exemplaires de la maison d'édition "Gallimard" ainsi que tous les emprunts sans exemplaires associés.
+DELETE FROM EXEMPLAIRE_O ex WHERE ex.REF_CATALOGUE.MAISON_EDITION = 'Gallimard';
+DELETE FROM EMPRUNT_O em WHERE em.REF_EXEMPLAIRE IS DANGLING;
+
+
