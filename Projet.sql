@@ -119,7 +119,7 @@ DATE_RETOUR             DATE , --date effective de retour
 REF_EXEMPLAIRE          REF EXEMPLAIRE_T,
 MAP MEMBER FUNCTION compDateEnd return DATE, -- comparer avec DATE_END croissant
 MEMBER PROCEDURE prolongerDateEnd(nbJours IN NUMBER),
-MEMBER FUNCTION testRetard RETURN BOOLEAN
+MEMBER FUNCTION testRetard RETURN NUMBER
 );
 /
 
@@ -133,13 +133,13 @@ CREATE OR REPLACE TYPE BODY EMPRUNT_T AS
     BEGIN
         DATE_END := DATE_END + nbJours;
     END;
-    
-    MEMBER FUNCTION testRetard RETURN BOOLEAN IS
+     
+     MEMBER FUNCTION testRetard RETURN NUMBER IS
      BEGIN
-        IF (DATE_END > CURRENT_TIMESTAMP) AND (DATE_RETOUR IS NULL) THEN
-            RETURN TRUE;
+        IF (DATE_END < CURRENT_DATE) AND (DATE_RETOUR IS NULL) THEN
+            RETURN 1;
         ELSE
-            RETURN FALSE;
+            RETURN 0;
         END IF;
      END;
 
@@ -888,3 +888,6 @@ WHERE a.column_value.NOM = 'GIRARD';
 SELECT exs.column_value.EXNO, exs.column_value.REF_CATALOGUE.TITRE 
 FROM BIBLIOTHEQUE_O b, TABLE(b.EXEMPLAIRES) exs, TABLE(exs.column_value.REF_CATALOGUE.REF_AUTEURS) a
 WHERE b.id = 1 AND a.column_value.NOM = 'GIRARD';
+
+--Rechercher tous les emprunts qui sont en retard
+SELECT e.id from EMPRUNT_O e WHERE e.testRetard() = 1;
