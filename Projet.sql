@@ -890,7 +890,7 @@ END;
 /
 COMMIT;
 
-------------------------------------------------Requêtes --------------------------------------------------------------------------------------
+------------------------------------------------Requêtes de consultation --------------------------------------------------------------------------------------
 --Rechercher tous les exemplaires dans certaine bibliothèque par le titre de catalogue et l’id de bibliothèque
 SELECT exs.column_value.EXNO
 FROM BIBLIOTHEQUE_O b, TABLE(b.EXEMPLAIRES) exs 
@@ -938,3 +938,5 @@ GROUP BY emp.REF_EXEMPLAIRE;
 SELECT emp.REF_ADHERENT.NOM as NOM,count(emp.REF_ADHERENT) as nb_Livre_Empruntée
 FROM EMPRUNT_O emp
 Group by emp.REF_ADHERENT;
+
+------------------------------------------------Requêtes de mises à jour et suppression --------------------------------------------------------------------------------------
