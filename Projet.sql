@@ -84,6 +84,7 @@ CREATE OR REPLACE TYPE TABEXEMPLAIRES_T AS TABLE OF REF EXEMPLAIRE_T
 
 CREATE OR REPLACE TYPE BIBLIOTHEQUE_T AS OBJECT(
 ID                          NUMBER(4),
+NOM                         VARCHAR(50),
 REGION                      VARCHAR(50),
 EXEMPLAIRES                 TABEXEMPLAIRES_T,
 ADDRESSE                    VARCHAR(50),
@@ -229,6 +230,7 @@ LOB(BIOGRAPHIE) STORE AS storeLobBiographie
 
 CREATE TABLE BIBLIOTHEQUE_O OF BIBLIOTHEQUE_T(
     CONSTRAINT PK_BIBLIOTHEQUE_O_ID PRIMARY KEY(ID),
+    CONSTRAINT NNL_BIBLIOTHEQUE_O_NOM NOM NOT NULL,
     CONSTRAINT NNL_BIBLIOTHEQUE_O_REGION REGION NOT NULL,
     CONSTRAINT NNL_BIBLIOTHEQUE_O_ADDRESSE ADDRESSE NOT NULL,
     CONSTRAINT NNL_BIBLIOTHEQUE_O_VILLE VILLE NOT NULL
@@ -324,6 +326,7 @@ refCat7 REF CATALOGUE_T;
 refCat8 REF CATALOGUE_T;
 refCat9 REF CATALOGUE_T;
 refCat10 REF CATALOGUE_T;
+refCat11 REF CATALOGUE_T;
 
 refExm1 REF EXEMPLAIRE_T;
 refExm2 REF EXEMPLAIRE_T;
@@ -449,6 +452,10 @@ INSERT INTO CATALOGUE_O ca VALUES (
     CATALOGUE_T(10,'LIVRE10',to_date('02/06/1995','DD/MM/YYYY'),'MAISON10',TAB_REF_AUTEURS_T(refAut4, refAut7),null))
     returning ref(ca) into refCat10;    
     
+INSERT INTO CATALOGUE_O ca VALUES (
+    CATALOGUE_T(11,'LIVRE11',to_date('02/05/1998','DD/MM/YYYY'),'MAISON11',TAB_REF_AUTEURS_T(refAut2, refAut4),null))
+    returning ref(ca) into refCat11;   
+    
 ---------------------- EXAMPLAIRES ------------------------------------------------------------------------------------------------------------------------------------------
     
 INSERT INTO EXEMPLAIRE_O ex VALUES (
@@ -522,78 +529,78 @@ INSERT INTO EXEMPLAIRE_O ex VALUES (
 
 INSERT INTO EXEMPLAIRE_O ex VALUES (
             EXEMPLAIRE_T(
-    11, refCat6
+    11, refCat11
     ))
     returning ref(ex) into refExm11;
 ---------------------------BIBLIOTHEQUE------------------------------------------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO BIBLIOTHEQUE_O el VALUES (
             BIBLIOTHEQUE_T(
-    1, 'Île-de-France', TABEXEMPLAIRES_T(refExm6, refExm8, refExm11), '65  Faubourg Saint Honoré', 'PARIS'
+    1,'BIBLIOTHEQUE_1', 'Île-de-France', TABEXEMPLAIRES_T(refExm6, refExm8, refExm11), '65  Faubourg Saint Honoré', 'PARIS'
     ))
     returning ref(el) into refBiblio1;
     
     INSERT INTO BIBLIOTHEQUE_O el VALUES (
             BIBLIOTHEQUE_T(
-    2, 'Corse', TABEXEMPLAIRES_T(refExm3), '107  Rue du Limas', 'BASTIA'
+    2,'BIBLIOTHEQUE_2', 'Corse', TABEXEMPLAIRES_T(refExm3), '107  Rue du Limas', 'BASTIA'
     ))
     returning ref(el) into refBiblio2;
 
 
 INSERT INTO BIBLIOTHEQUE_O el VALUES (
             BIBLIOTHEQUE_T(
-    3, 'Nord-Pas-de-Calais', TABEXEMPLAIRES_T(refExm1), '54  rue Cazade', 'DUNKERQUE'
+    3,'BIBLIOTHEQUE_3', 'Nord-Pas-de-Calais', TABEXEMPLAIRES_T(refExm1), '54  rue Cazade', 'DUNKERQUE'
     ))
     returning ref(el) into refBiblio3;
 
 
 INSERT INTO BIBLIOTHEQUE_O el VALUES (
             BIBLIOTHEQUE_T(
-    4, 'Provence-Alpes-Côte d Azur', TABEXEMPLAIRES_T(refExm2), '65  cours Franklin Roosevelt', 'MARSEILLE'
+    4,'BIBLIOTHEQUE_4', 'Provence-Alpes-Côte d Azur', TABEXEMPLAIRES_T(refExm2), '65  cours Franklin Roosevelt', 'MARSEILLE'
     ))
     returning ref(el) into refBiblio4;
 
 
 INSERT INTO BIBLIOTHEQUE_O el VALUES (
             BIBLIOTHEQUE_T(
-    5, 'Rhône-Alpes', TABEXEMPLAIRES_T(refExm10, refExm9), '46  rue Gustave Eiffel', 'ROANNE'
+    5,'BIBLIOTHEQUE_5', 'Rhône-Alpes', TABEXEMPLAIRES_T(refExm10, refExm9), '46  rue Gustave Eiffel', 'ROANNE'
     ))
     returning ref(el) into refBiblio5;
     
     INSERT INTO BIBLIOTHEQUE_O el VALUES (
             BIBLIOTHEQUE_T(
-    6, 'Île-de-France', TABEXEMPLAIRES_T(refExm1, refExm2), '26  rue de Penthièvre', 'PONTOISE'
+    6,'BIBLIOTHEQUE_6', 'Île-de-France', TABEXEMPLAIRES_T(refExm1, refExm2), '26  rue de Penthièvre', 'PONTOISE'
     ))
     returning ref(el) into refBiblio6;
 
 INSERT INTO BIBLIOTHEQUE_O el VALUES (
             BIBLIOTHEQUE_T(
-    7, 'Lorraine', TABEXEMPLAIRES_T(refExm4, refExm3), '33  boulevard Gustave Eiffel', 'VERDUN'
+    7,'BIBLIOTHEQUE_7', 'Lorraine', TABEXEMPLAIRES_T(refExm4, refExm3), '33  boulevard Gustave Eiffel', 'VERDUN'
     ))
     returning ref(el) into refBiblio7;
 
 INSERT INTO BIBLIOTHEQUE_O el VALUES (
             BIBLIOTHEQUE_T(
-    8, 'Provence-Alpes-Côte d Azur', TABEXEMPLAIRES_T(refExm5, refExm6), '99  rue Reine Elisabeth', 'MENTON'
+    8,'BIBLIOTHEQUE_8', 'Provence-Alpes-Côte d Azur', TABEXEMPLAIRES_T(refExm5, refExm6), '99  rue Reine Elisabeth', 'MENTON'
     ))
     returning ref(el) into refBiblio8;
 
 INSERT INTO BIBLIOTHEQUE_O el VALUES (
             BIBLIOTHEQUE_T(
-    9, 'Île-de-France', TABEXEMPLAIRES_T(refExm7, refExm8), '63  Square de la Couronne', 'PARIS'
+    9,'BIBLIOTHEQUE_9', 'Île-de-France', TABEXEMPLAIRES_T(refExm7, refExm8), '63  Square de la Couronne', 'PARIS'
     ))
     returning ref(el) into refBiblio9;
 
 INSERT INTO BIBLIOTHEQUE_O el VALUES (
             BIBLIOTHEQUE_T(
-    10, 'Nord-Pas-de-Calais', TABEXEMPLAIRES_T(refExm9), '32  Rue Hubert de Lisle', 'LOOS'
+    10,'BIBLIOTHEQUE_10', 'Nord-Pas-de-Calais', TABEXEMPLAIRES_T(refExm9), '32  Rue Hubert de Lisle', 'LOOS'
     ))
     returning ref(el) into refBiblio10;
 
 -------------------------------------------------------------------------ADHERENT----------------------------------------------------------------------------
 INSERT INTO ADHERENT_O ad VALUES (
             ADHERENT_T(
-    1, 'Martin', TABPRENOMS_T('Gabriel', 'A'), TAB_REF_BIBLIOTHEQUE_T(refBiblio1), '26 boulevard Renaud', '+33-655-537-820', 'punkis@icloud.fr', to_date('11/02/1983', 'DD/MM/YYYY'), to_date('08/11/2015', 'DD-MM-YYYY'), 'Nice'
+    1, 'Martin', TABPRENOMS_T('Gabriel', 'A'), TAB_REF_BIBLIOTHEQUE_T(refBiblio1,refBiblio2), '26 boulevard Renaud', '+33-655-537-820', 'punkis@icloud.fr', to_date('11/02/1983', 'DD/MM/YYYY'), to_date('08/11/2015', 'DD-MM-YYYY'), 'Nice'
     ))
     returning ref(ad) into refAdh1;
     
@@ -769,7 +776,7 @@ INSERT INTO EMPRUNT_O VALUES (
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
-    7, refAdh7, to_date('06/08/2020', 'DD-MM-YYYY'), to_date('06/09/2020', 'DD-MM-YYYY'), to_date('01/09/2020', 'DD-MM-YYYY'), refExm7
+    7, refAdh10, to_date('06/08/2020', 'DD-MM-YYYY'), to_date('06/09/2020', 'DD-MM-YYYY'), to_date('01/09/2020', 'DD-MM-YYYY'), refExm7
     ));
 
 
@@ -805,13 +812,13 @@ INSERT INTO EMPRUNT_O VALUES (
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
-    13, refAdh13, to_date('23/04/2020', 'DD-MM-YYYY'), to_date('23/05/2020', 'DD-MM-YYYY'), to_date('01/05/2020', 'DD-MM-YYYY'), refExm3
+    13, refAdh10, to_date('23/04/2020', 'DD-MM-YYYY'), to_date('23/05/2020', 'DD-MM-YYYY'), to_date('01/05/2020', 'DD-MM-YYYY'), refExm1
     ));
 
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
-    14, refAdh14, to_date('16/01/2020', 'DD-MM-YYYY'), to_date('16/02/2020', 'DD-MM-YYYY'), to_date('01/02/2020', 'DD-MM-YYYY'), refExm4
+    14, refAdh8, to_date('16/01/2020', 'DD-MM-YYYY'), to_date('16/02/2020', 'DD-MM-YYYY'), to_date('01/02/2020', 'DD-MM-YYYY'), refExm4
     ));
 
 
@@ -823,19 +830,19 @@ INSERT INTO EMPRUNT_O VALUES (
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
-    16, refAdh16, to_date('23/06/2020', 'DD-MM-YYYY'), to_date('23/07/2020', 'DD-MM-YYYY'), null, refExm5
+    16, refAdh16, to_date('23/06/2020', 'DD-MM-YYYY'), to_date('23/07/2020', 'DD-MM-YYYY'), null, refExm1
     ));
 
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
-    17, refAdh17, to_date('20/08/2020', 'DD-MM-YYYY'), to_date('20/09/2020', 'DD-MM-YYYY'), null, refExm6
+    17, refAdh17, to_date('20/08/2020', 'DD-MM-YYYY'), to_date('20/09/2020', 'DD-MM-YYYY'), null, refExm9
     ));
 
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
-    18, refAdh18, to_date('09/05/2020', 'DD-MM-YYYY'), to_date('09/06/2020', 'DD-MM-YYYY'), null, refExm7
+    18, refAdh18, to_date('09/05/2020', 'DD-MM-YYYY'), to_date('09/06/2020', 'DD-MM-YYYY'), null, refExm11
     ));
 
 
@@ -847,8 +854,19 @@ INSERT INTO EMPRUNT_O VALUES (
 
 INSERT INTO EMPRUNT_O VALUES (
             EMPRUNT_T(
-    20, refAdh20, to_date('05/05/2020', 'DD-MM-YYYY'), to_date('05/06/2020', 'DD-MM-YYYY'), null, refExm9
+    20, refAdh19, to_date('05/05/2020', 'DD-MM-YYYY'), to_date('05/06/2020', 'DD-MM-YYYY'), null, refExm9
     ));
+    
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    21, refAdh19, to_date('05/05/2020', 'DD-MM-YYYY'), to_date('01/06/2022', 'DD-MM-YYYY'), null, refExm9
+    ));
+    
+INSERT INTO EMPRUNT_O VALUES (
+            EMPRUNT_T(
+    22, refAdh17, to_date('07/07/2020', 'DD-MM-YYYY'), to_date('01/06/2023', 'DD-MM-YYYY'), null, refExm1
+    ));
+    
     
 END;
 /
@@ -891,3 +909,32 @@ WHERE b.id = 1 AND a.column_value.NOM = 'GIRARD';
 
 --Rechercher tous les emprunts qui sont en retard
 SELECT e.id from EMPRUNT_O e WHERE e.testRetard() = 1;
+
+--------
+
+-- Rechercher tous les adhérents qui ont pas retourné les livres empruntés
+SELECT emp.REF_ADHERENT.NOM ,emp.REF_ADHERENT.PHONE , emp.ID
+FROM EMPRUNT_O emp
+WHERE emp.testRetard()=1;
+
+--Rechercher les adhérents de la bibliothèque 1 par le nom de la bibliothèque(&nom)
+SELECT ad.NOM,ad.PHONE,ad.NUMERO_ADHERENT
+FROM ADHERENT_O ad , TABLE(ad.REF_BIBLIOTHEQUE) adRef 
+where adRef.column_value.NOM =  'BIBLIOTHEQUE_1' ;
+
+--Rechercher tous les exemplaires qui ne sont pas encore retournés et sont donc en retard(date de fin de l'emprunt du livre dépassé sans que l'adhérent retourne le livre)
+SELECT emp.REF_EXEMPLAIRE.EXNO as ID_EXEMPLAIRE, emp.REF_EXEMPLAIRE.REF_CATALOGUE.TITRE AS TITRE ,COUNT(emp.REF_EXEMPLAIRE) AS EXEMPLAIRE_EN_RETARD
+FROM EMPRUNT_O emp
+WHERE emp.testRetard()=1
+GROUP BY emp.REF_EXEMPLAIRE;
+
+--Rechercher tous les exemplaires avec un emprunt valide(les exemplaires qui ne sont pas encore retournés mais qui ne sont pas en retard(date de fin de l'emprunt du livre pas encore dépassé))
+SELECT emp.REF_EXEMPLAIRE.EXNO as ID_EXEMPLAIRE, emp.REF_EXEMPLAIRE.REF_CATALOGUE.TITRE AS TITRE ,COUNT(emp.REF_EXEMPLAIRE) AS EMPRUNT_VALIDE
+FROM EMPRUNT_O emp
+WHERE emp.DATE_END > CURRENT_DATE AND DATE_RETOUR IS NULL
+GROUP BY emp.REF_EXEMPLAIRE;
+
+--Pour chaque adhérent donner le nombre de livre qu'il a empruntée
+SELECT emp.REF_ADHERENT.NOM as NOM,count(emp.REF_ADHERENT) as nb_Livre_Empruntée
+FROM EMPRUNT_O emp
+Group by emp.REF_ADHERENT;
