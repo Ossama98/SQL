@@ -42,9 +42,9 @@ CREATE OR REPLACE TYPE BODY CATALOGUE_T AS
     ORDER MEMBER FUNCTION COMPANNEEEDITION(CA CATALOGUE_T) RETURN NUMBER IS
     BEGIN
         IF ANNEE_EDITION < CA.ANNEE_EDITION THEN
-           RETURN 1;  --SI ON VEUT COMPARER PAR ORDRE CROISSANT RETURN -1
+           RETURN 1;  --SI ON VEUT COMPARER PAR ORDRE CROISSANT : RETURN -1
         ELSIF ANNEE_EDITION > CA.ANNEE_EDITION THEN
-            RETURN -1;   --SI ON VEUT COMPARER PAR ORDRE CROISSANT RETURN 1
+            RETURN -1;   --SI ON VEUT COMPARER PAR ORDRE CROISSANT : RETURN 1
         ELSE
             RETURN 0;
         END IF;
@@ -164,12 +164,12 @@ EMAIL                      VARCHAR2(20),
 DATE_DE_NAISSANCE          DATE,
 DATE_D_ADHESION            DATE,
 VILLE                      VARCHAR2(20),
-MAP MEMBER FUNCTION COMPNOMPRENOMSVILLE RETURN VARCHAR2
+MAP MEMBER FUNCTION COMPNOMPRENOMVILLE RETURN VARCHAR2
 );
 /
 
 CREATE OR REPLACE TYPE BODY ADHERENT_T AS 
-    MAP MEMBER FUNCTION COMPNOMPRENOMSVILLE RETURN VARCHAR2 IS
+    MAP MEMBER FUNCTION COMPNOMPRENOMVILLE RETURN VARCHAR2 IS
     BEGIN
         RETURN NOM||PRENOMS.FIRST||VILLE;
     END;
@@ -872,7 +872,27 @@ END;
 /
 COMMIT;
 ------------------------------------------------TEST --------------------------------------------------------------------------------------
---- Test de la méthode getAuteur
+--EXEMPLAIRE
+--- Test de la méthode COMPANNEEEDITION
+--- Test de la méthode CONSULTERAUTEURS
+
+--CATALOGUE
+--- Test de la méthode COMPID
+
+--BIBLIOTHEQUE
+--- Test de la méthode COMPREGIONVILLE
+--- Test de la méthode AJOUTEXEMPLAIRE
+
+--EMPRUNT
+--- Test de la méthode COMPDATEEND
+--- Test de la méthode PROLONGERDATEEND
+--- Test de la méthode TESTRETARD
+
+--ADHERENT
+--- Test de la méthode COMPNOMPRENOMVILLE
+
+--AUTEUR
+--- Test de la méthode GETAUTEUR
 SET SERVEROUTPUT ON
 DECLARE
 AUT1 AUTEUR_T;
@@ -889,7 +909,7 @@ BEGIN
 END;
 /
 COMMIT;
-
+--- Test de la méthode COMPNOMPRENOMNAISSANCE
 ------------------------------------------------Requêtes de consultation --------------------------------------------------------------------------------------
 --Rechercher tous les catalogues par titre
 SELECT C.TITRE 
