@@ -940,3 +940,13 @@ FROM EMPRUNT_O emp
 Group by emp.REF_ADHERENT;
 
 ------------------------------------------------Requêtes de mises à jour et suppression --------------------------------------------------------------------------------------
+--Mettre à jour le numéro de téléphone de l'adhérent Martin
+UPDATE ADHERENT_O
+SET PHONE = '+33-675-437-880'
+WHERE NOM = 'Martin';
+
+--Mise à jour d'un champ VARRAY
+UPDATE AUTEUR_O
+SET PRENOMS = TABPRENOMS_T('Grizou','Pogba')
+WHERE NOM = 'GIRARD';
+
