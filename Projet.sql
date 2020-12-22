@@ -891,6 +891,15 @@ END;
 COMMIT;
 
 ------------------------------------------------Requêtes de consultation --------------------------------------------------------------------------------------
+--Rechercher tous les catalogues par titre
+SELECT c.TITRE 
+FROM CATALOGUE_O c;
+
+--Rechercher tous les exemplaires par le titre de catalogue
+SELECT *
+FROM EXEMPLAIRE_O ex
+WHERE ex.REF_CATALOGUE.TITRE = 'LIVRE5';
+
 --Rechercher tous les exemplaires dans certaine bibliothèque par le titre de catalogue et l’id de bibliothèque
 SELECT exs.column_value.EXNO
 FROM BIBLIOTHEQUE_O b, TABLE(b.EXEMPLAIRES) exs 
@@ -908,14 +917,12 @@ FROM BIBLIOTHEQUE_O b, TABLE(b.EXEMPLAIRES) exs, TABLE(exs.column_value.REF_CATA
 WHERE b.id = 1 AND a.column_value.NOM = 'GIRARD';
 
 --Rechercher tous les emprunts qui sont en retard
-SELECT e.id from EMPRUNT_O e WHERE e.testRetard() = 1;
+SELECT e.id FROM EMPRUNT_O e WHERE e.testRetard() = 1;
 
---------
-
--- Rechercher tous les adhérents qui ont pas retourné les livres empruntés
+--Rechercher tous les adhérents qui ont pas retourné les livres empruntés
 SELECT emp.REF_ADHERENT.NOM ,emp.REF_ADHERENT.PHONE , emp.ID
 FROM EMPRUNT_O emp
-WHERE emp.testRetard()=1;
+WHERE emp.testRetard() = 1;
 
 --Rechercher les adhérents de la bibliothèque 1 par le nom de la bibliothèque(&nom)
 SELECT ad.NOM,ad.PHONE,ad.NUMERO_ADHERENT
@@ -923,19 +930,23 @@ FROM ADHERENT_O ad , TABLE(ad.REF_BIBLIOTHEQUE) adRef
 where adRef.column_value.NOM =  'BIBLIOTHEQUE_1' ;
 
 --Rechercher tous les exemplaires qui ne sont pas encore retournés et sont donc en retard(date de fin de l'emprunt du livre dépassé sans que l'adhérent retourne le livre)
-SELECT emp.REF_EXEMPLAIRE.EXNO as ID_EXEMPLAIRE, emp.REF_EXEMPLAIRE.REF_CATALOGUE.TITRE AS TITRE ,COUNT(emp.REF_EXEMPLAIRE) AS EXEMPLAIRE_EN_RETARD
+SELECT  emp.REF_EXEMPLAIRE.EXNO AS ID_EXEMPLAIRE, 
+        emp.REF_EXEMPLAIRE.REF_CATALOGUE.TITRE AS TITRE ,
+        COUNT(emp.REF_EXEMPLAIRE) AS EXEMPLAIRE_EN_RETARD
 FROM EMPRUNT_O emp
 WHERE emp.testRetard()=1
 GROUP BY emp.REF_EXEMPLAIRE;
 
 --Rechercher tous les exemplaires avec un emprunt valide(les exemplaires qui ne sont pas encore retournés mais qui ne sont pas en retard(date de fin de l'emprunt du livre pas encore dépassé))
-SELECT emp.REF_EXEMPLAIRE.EXNO as ID_EXEMPLAIRE, emp.REF_EXEMPLAIRE.REF_CATALOGUE.TITRE AS TITRE ,COUNT(emp.REF_EXEMPLAIRE) AS EMPRUNT_VALIDE
+SELECT  emp.REF_EXEMPLAIRE.EXNO AS ID_EXEMPLAIRE, 
+        emp.REF_EXEMPLAIRE.REF_CATALOGUE.TITRE AS TITRE ,
+        COUNT(emp.REF_EXEMPLAIRE) AS EMPRUNT_VALIDE
 FROM EMPRUNT_O emp
 WHERE emp.DATE_END > CURRENT_DATE AND DATE_RETOUR IS NULL
 GROUP BY emp.REF_EXEMPLAIRE;
 
 --Pour chaque adhérent donner le nombre de livre qu'il a empruntée
-SELECT emp.REF_ADHERENT.NOM as NOM,count(emp.REF_ADHERENT) as nb_Livre_Empruntée
+SELECT emp.REF_ADHERENT.NOM AS NOM, count(emp.REF_ADHERENT) AS nb_Livre_Emprunté
 FROM EMPRUNT_O emp
 Group by emp.REF_ADHERENT;
 
