@@ -118,9 +118,32 @@ DATE_END                DATE , --date de fin de l'emprunt
 DATE_RETOUR             DATE , --date effective de retour
 REF_EXEMPLAIRE          REF EXEMPLAIRE_T,
 MAP MEMBER FUNCTION compDateEnd return DATE, -- comparer avec DATE_END croissant
-MEMBER FUNCTION prolongerDateEnd(nbJour in NUMBER) return DATE,
-MEMBER PROCEDURE testRetard
+MEMBER PROCEDURE prolongerDateEnd(nbJours IN NUMBER),
+MEMBER FUNCTION testRetard RETURN BOOLEAN
 );
+/
+
+CREATE OR REPLACE TYPE BODY EMPRUNT_T AS 
+    MAP MEMBER FUNCTION compDateEnd RETURN DATE IS
+    BEGIN
+        RETURN DATE_END;
+    END;
+    
+    MEMBER PROCEDURE prolongerDateEnd(nbJours IN NUMBER) IS
+    BEGIN
+        DATE_END := DATE_END + nbJours;
+    END;
+    
+    MEMBER FUNCTION testRetard RETURN BOOLEAN IS
+     BEGIN
+        IF (DATE_END > CURRENT_TIMESTAMP) AND (DATE_RETOUR IS NULL) THEN
+            RETURN TRUE;
+        ELSE
+            RETURN FALSE;
+        END IF;
+     END;
+
+END;
 /
 
 CREATE OR REPLACE TYPE TABPRENOMS_T AS VARRAY(4) OF VARCHAR2(40);
@@ -140,8 +163,16 @@ EMAIL                      VARCHAR2(20),
 DATE_DE_NAISSANCE          DATE,
 DATE_D_ADHESION            DATE,
 VILLE                      VARCHAR2(20),
-MAP MEMBER FUNCTION compNomPrenomsVille return VARCHAR2 -- comparer avec NOM||PRENOM||VILLE
+MAP MEMBER FUNCTION compNomPrenomsVille return VARCHAR2
 );
+/
+
+CREATE OR REPLACE TYPE BODY ADHERENT_T AS 
+    MAP MEMBER FUNCTION compNomPrenomsVille RETURN VARCHAR2 IS
+    BEGIN
+        RETURN NOM||PRENOMS.FIRST||VILLE;
+    END;
+END;
 /
 
 CREATE OR REPLACE TYPE AUTEUR_T AS OBJECT(
