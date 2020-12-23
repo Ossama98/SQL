@@ -16,7 +16,7 @@ DROP TYPE   ADHERENT_T FORCE;
 DROP TYPE   TAB_REF_BIBLIOTHEQUES_T FORCE;
 DROP TYPE   EMPRUNT_T FORCE;
 
--- Création des types
+---------------------------------------- Création des types ---------------------------------------- 
 
 CREATE OR REPLACE TYPE AUTEUR_T
 /
@@ -201,7 +201,7 @@ CREATE OR REPLACE TYPE BODY AUTEUR_T IS
 END;
 /
 
------------------- Création des tables -----------------------------------------
+--------------------------------------- Création des tables ------------------------------------------------
 CREATE TABLE CATALOGUE_O OF CATALOGUE_T(
 CONSTRAINT PK_CATALOGUE_O_CATNO PRIMARY KEY(CATNO),
 CONSTRAINT NNL_CATALOGUE_O_TITRE TITRE NOT NULL 
@@ -258,7 +258,7 @@ CONSTRAINT NNL_ADHERENT_O_VILLE VILLE NOT NULL
 NESTED TABLE REF_BIBLIOTHEQUES STORE AS TABLE_REF_BIBLIOTHEQUE
 /
 
--------------------- Création des indexes ---------------------------------------
+---------------------------------- Création des indexes ---------------------------------------
 ALTER TABLE TABLE_REF_BIBLIOTHEQUE 
 	ADD (SCOPE FOR (COLUMN_VALUE) IS BIBLIOTHEQUE_O);
 
@@ -292,7 +292,7 @@ CREATE INDEX IDX_UNIQUE_BIBLIOTHEQUE_REGION ON BIBLIOTHEQUE_O(REGION);
 --INDEXES EXEMPLAIRE
 CREATE INDEX IDX_UNIQUE_EXEMPLAIRE_REF_CATALOGUE ON EXEMPLAIRE_O(REF_CATALOGUE);
  
--------------------- Insertion des adherents ---------------------------------------
+---------------------------------------------------------------------- Insertions ---------------------------------------------------------------
 DECLARE
 REFADH1 REF ADHERENT_T;
 REFADH2 REF ADHERENT_T;
@@ -455,8 +455,7 @@ INSERT INTO CATALOGUE_O CA VALUES (
     CATALOGUE_T(11,'LIVRE11',TO_DATE('02/05/1998','DD/MM/YYYY'),'Gallimard',TAB_REF_AUTEURS_T(REFAUT2, REFAUT4),NULL))
     RETURNING REF(CA) INTO REFCAT11;   
     
----------------------- EXAMPLAIRES ------------------------------------------------------------------------------------------------------------------------------------------
-    
+---------------------------------------------------------- EXAMPLAIRES ----------------------------------------------------------------
 INSERT INTO EXEMPLAIRE_O EX VALUES (
             EXEMPLAIRE_T(
     1, REFCAT1
@@ -531,68 +530,68 @@ INSERT INTO EXEMPLAIRE_O EX VALUES (
     11, REFCAT11
     ))
     RETURNING REF(EX) INTO REFEXM11;
----------------------------BIBLIOTHEQUE------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------BIBLIOTHEQUE---------------------------------------------------------------------------
 
 INSERT INTO BIBLIOTHEQUE_O EL VALUES (
             BIBLIOTHEQUE_T(
-    1,'BIBLIOTHEQUE_1', 'Île-de-France', TAB_REF_EXEMPLAIRES_T(REFEXM6, REFEXM8, REFEXM11), '65  Faubourg Saint Honoré', 'PARIS'
+    1,'BIBLIOTHEQUE_1', 'Île-de-France', TAB_REF_EXEMPLAIRES_T(REFEXM6, REFEXM8, REFEXM11), '65  Faubourg Saint Honoré', 'PARIS', CURRENT_DATE
     ))
     RETURNING REF(EL) INTO REFBIBLIO1;
     
     INSERT INTO BIBLIOTHEQUE_O EL VALUES (
             BIBLIOTHEQUE_T(
-    2,'BIBLIOTHEQUE_2', 'Corse', TAB_REF_EXEMPLAIRES_T(REFEXM3), '107  Rue du Limas', 'BASTIA'
+    2,'BIBLIOTHEQUE_2', 'Corse', TAB_REF_EXEMPLAIRES_T(REFEXM3), '107  Rue du Limas', 'BASTIA', CURRENT_DATE
     ))
     RETURNING REF(EL) INTO REFBIBLIO2;
 
 
 INSERT INTO BIBLIOTHEQUE_O EL VALUES (
             BIBLIOTHEQUE_T(
-    3,'BIBLIOTHEQUE_3', 'Nord-Pas-de-Calais', TAB_REF_EXEMPLAIRES_T(REFEXM1), '54  rue Cazade', 'DUNKERQUE'
+    3,'BIBLIOTHEQUE_3', 'Nord-Pas-de-Calais', TAB_REF_EXEMPLAIRES_T(REFEXM1), '54  rue Cazade', 'DUNKERQUE', CURRENT_DATE
     ))
     RETURNING REF(EL) INTO REFBIBLIO3;
 
 
 INSERT INTO BIBLIOTHEQUE_O EL VALUES (
             BIBLIOTHEQUE_T(
-    4,'BIBLIOTHEQUE_4', 'Provence-Alpes-Côte d Azur', TAB_REF_EXEMPLAIRES_T(REFEXM2), '65  cours Franklin Roosevelt', 'MARSEILLE'
+    4,'BIBLIOTHEQUE_4', 'Provence-Alpes-Côte d Azur', TAB_REF_EXEMPLAIRES_T(REFEXM2), '65  cours Franklin Roosevelt', 'MARSEILLE', CURRENT_DATE
     ))
     RETURNING REF(EL) INTO REFBIBLIO4;
 
 
 INSERT INTO BIBLIOTHEQUE_O EL VALUES (
             BIBLIOTHEQUE_T(
-    5,'BIBLIOTHEQUE_5', 'Rhône-Alpes', TAB_REF_EXEMPLAIRES_T(REFEXM10, REFEXM9), '46  rue Gustave Eiffel', 'ROANNE'
+    5,'BIBLIOTHEQUE_5', 'Rhône-Alpes', TAB_REF_EXEMPLAIRES_T(REFEXM10, REFEXM9), '46  rue Gustave Eiffel', 'ROANNE', CURRENT_DATE
     ))
     RETURNING REF(EL) INTO REFBIBLIO5;
     
     INSERT INTO BIBLIOTHEQUE_O EL VALUES (
             BIBLIOTHEQUE_T(
-    6,'BIBLIOTHEQUE_6', 'Île-de-France', TAB_REF_EXEMPLAIRES_T(REFEXM1, REFEXM2), '26  rue de Penthièvre', 'PONTOISE'
+    6,'BIBLIOTHEQUE_6', 'Île-de-France', TAB_REF_EXEMPLAIRES_T(REFEXM1, REFEXM2), '26  rue de Penthièvre', 'PONTOISE', CURRENT_DATE
     ))
     RETURNING REF(EL) INTO REFBIBLIO6;
 
 INSERT INTO BIBLIOTHEQUE_O EL VALUES (
             BIBLIOTHEQUE_T(
-    7,'BIBLIOTHEQUE_7', 'Lorraine', TAB_REF_EXEMPLAIRES_T(REFEXM4, REFEXM3), '33  boulevard Gustave Eiffel', 'VERDUN'
+    7,'BIBLIOTHEQUE_7', 'Lorraine', TAB_REF_EXEMPLAIRES_T(REFEXM4, REFEXM3), '33  boulevard Gustave Eiffel', 'VERDUN', CURRENT_DATE
     ))
     RETURNING REF(EL) INTO REFBIBLIO7;
 
 INSERT INTO BIBLIOTHEQUE_O EL VALUES (
             BIBLIOTHEQUE_T(
-    8,'BIBLIOTHEQUE_8', 'Provence-Alpes-Côte d Azur', TAB_REF_EXEMPLAIRES_T(REFEXM5, REFEXM6), '99  rue Reine Elisabeth', 'MENTON'
+    8,'BIBLIOTHEQUE_8', 'Provence-Alpes-Côte d Azur', TAB_REF_EXEMPLAIRES_T(REFEXM5, REFEXM6), '99  rue Reine Elisabeth', 'MENTON', CURRENT_DATE
     ))
     RETURNING REF(EL) INTO REFBIBLIO8;
 
 INSERT INTO BIBLIOTHEQUE_O EL VALUES (
             BIBLIOTHEQUE_T(
-    9,'BIBLIOTHEQUE_9', 'Île-de-France', TAB_REF_EXEMPLAIRES_T(REFEXM7, REFEXM8), '63  Square de la Couronne', 'PARIS'
+    9,'BIBLIOTHEQUE_9', 'Île-de-France', TAB_REF_EXEMPLAIRES_T(REFEXM7, REFEXM8), '63  Square de la Couronne', 'PARIS', CURRENT_DATE
     ))
     RETURNING REF(EL) INTO REFBIBLIO9;
 
 INSERT INTO BIBLIOTHEQUE_O EL VALUES (
             BIBLIOTHEQUE_T(
-    10,'BIBLIOTHEQUE_10', 'Nord-Pas-de-Calais', TAB_REF_EXEMPLAIRES_T(REFEXM9), '32  Rue Hubert de Lisle', 'LOOS'
+    10,'BIBLIOTHEQUE_10', 'Nord-Pas-de-Calais', TAB_REF_EXEMPLAIRES_T(REFEXM9), '32  Rue Hubert de Lisle', 'LOOS', CURRENT_DATE
     ))
     RETURNING REF(EL) INTO REFBIBLIO10;
 
@@ -870,45 +869,6 @@ INSERT INTO EMPRUNT_O VALUES (
 END;
 /
 COMMIT;
-------------------------------------------------TEST --------------------------------------------------------------------------------------
---EXEMPLAIRE
---- Test de la méthode COMPANNEEEDITION
---- Test de la méthode CONSULTERAUTEURS
-
---CATALOGUE
---- Test de la méthode COMPID
-
---BIBLIOTHEQUE
---- Test de la méthode COMPREGIONVILLE
---- Test de la méthode AJOUTEXEMPLAIRE
-
---EMPRUNT
---- Test de la méthode COMPDATEEND
---- Test de la méthode PROLONGERDATEEND
---- Test de la méthode TESTRETARD
-
---ADHERENT
---- Test de la méthode COMPNOMPRENOMVILLE
-
---AUTEUR
---- Test de la méthode GETAUTEUR
-SET SERVEROUTPUT ON
-DECLARE
-AUT1 AUTEUR_T;
-AUT2 AUTEUR_T;
-BEGIN
-    SELECT VALUE(AUT) INTO AUT1 FROM AUTEUR_O AUT WHERE ID=1;
-    AUT2 := AUT1.GETAUTEUR;
-    DBMS_OUTPUT.PUT_LINE('aut1.NOM='||AUT1.NOM);
-	DBMS_OUTPUT.PUT_LINE('aut2.NOM='||AUT2.NOM);
-	EXCEPTION
-		WHEN OTHERS THEN
-				DBMS_OUTPUT.PUT_LINE('sqlcode='||SQLCODE);
-				DBMS_OUTPUT.PUT_LINE('sqlerrm='||SQLERRM);
-END;
-/
-COMMIT;
---- Test de la méthode COMPNOMPRENOMNAISSANCE
 ------------------------------------------------Requêtes de consultation --------------------------------------------------------------------------------------
 --Rechercher tous les catalogues par titre
 SELECT C.TITRE 
@@ -965,7 +925,7 @@ SELECT EMP.REF_ADHERENT.NOM AS NOM, COUNT(EMP.REF_ADHERENT) AS NB_LIVRE_EMPRUNT�
 FROM EMPRUNT_O EMP
 GROUP BY EMP.REF_ADHERENT;
 
-------------------------------------------------Requêtes de mises à jour et suppression --------------------------------------------------------------------------------------
+------------------------------------------------Requêtes de mises à jour --------------------------------------------------------------------------------------
 --Mettre à jour le numéro de téléphone de l'adhérent numéro 2
 UPDATE ADHERENT_O
 SET PHONE = '+33-675-437-880'
@@ -991,61 +951,7 @@ UPDATE EMPRUNT_O emp
 SET emp.DATE_END = emp.DATE_END - 1
 WHERE emp.REF_EXEMPLAIRE.REF_CATALOGUE.MAISON_EDITION = 'Gallimard';
 
-		    
---Suppression de l'adhérent numéro 3 et ses emprunts associées
-DECLARE
-ADH1    REF ADHERENT_T;
-BEGIN
-    DELETE FROM ADHERENT_O AD WHERE NUMERO_ADHERENT= 3 
-    RETURNING REF(AD) INTO ADH1;
-    
-    DELETE FROM EMPRUNT_O EMP WHERE EMP.REF_ADHERENT=ADH1;
-END;
-/
-
---Suppression de tous les exemplaires de la maison d'édition "Gallimard" ainsi que tous les emprunts sans exemplaires associés.
-DELETE FROM EXEMPLAIRE_O ex WHERE ex.REF_CATALOGUE.MAISON_EDITION = 'Gallimard';
-DELETE FROM EMPRUNT_O em WHERE em.REF_EXEMPLAIRE IS DANGLING;
-
---select ex.COLUMN_VALUE.EXNO FROM BIBLIOTHEQUE_O b, TABLE(b.REF_EXEMPLAIRES) ex WHERE b.ID = 1;
---select EXNO from EXEMPLAIRE_O;
---select e.ID, e.REF_EXEMPLAIRE.EXNO from EMPRUNT_O e;
-
---Suppression de la biblioteque numéro 1
-
-/*
-DECLARE
-REF_EXEMPLAIRES1 TAB_REF_EXEMPLAIRES_T;
-BEGIN
-    DELETE FROM BIBLIOTHEQUE_O b WHERE b.ID = 1
-    RETURNING b.REF_EXEMPLAIRES INTO REF_EXEMPLAIRES1;
-    
-    --supprimer tous les exemplaires et les emprunts de cette biblioteque
-    for i in REF_EXEMPLAIRES1.first .. REF_EXEMPLAIRES1.last
-    loop
-        DELETE FROM EMPRUNT_O WHERE REF_EXEMPLAIRE=REF_EXEMPLAIRES1(i);
-        DELETE FROM EXEMPLAIRE_O e WHERE ref(e) = REF_EXEMPLAIRES1(i);
-    end loop;
-END;
-/
-
-
---select EXNO from EXEMPLAIRE_O;
---select e.ID, e.REF_EXEMPLAIRE.EXNO from EMPRUNT_O e;
-
-
-CREATE OR REPLACE DIRECTORY bfile_dir 
-	AS 'C:\app\mondi\oradata\orcl\LobFiles\; 
---' ;
-
-grant read,write on directory bfile_dir to public;
-
-UPDATE AUTEUR_O O
-SET O.BIOGRAPHIE = BFILENAME('BFILE_DIR', 'Sample.txt')
-WHERE O.ID = 1;
-*/
-
---Creer les exemplaires
+--Ajouter le nouvel exemplaire dans une bibliothèque
 DECLARE
 REF_EXEMPLAIRES1 TAB_REF_EXEMPLAIRES_T;
 REFAUT35 REF AUTEUR_T;
@@ -1073,7 +979,79 @@ BEGIN
     TABLE(SELECT b.REF_EXEMPLAIRES FROM  BIBLIOTHEQUE_O b WHERE b.ID = 1)
     SELECT REF(e) FROM EXEMPLAIRE_O e WHERE e.EXNO=35;
     
-    SELECT value(b) FROM BIBLIOTHEQUE_O b WHERE b.ID = 1;
-    b.SET_STOCKAGE_UPDATED;
+    SELECT value(b) INTO BIBL FROM BIBLIOTHEQUE_O b WHERE b.ID = 1;
+    BIBL.SET_STOCKAGE_UPDATED;
 END;
 /
+
+------------------------------------------------Requêtes de suppression --------------------------------------------------------------------------------------		    
+--Suppression de l'adhérent numéro 3 et ses emprunts associées
+DECLARE
+ADH1    REF ADHERENT_T;
+BEGIN
+    DELETE FROM ADHERENT_O AD WHERE NUMERO_ADHERENT= 3 
+    RETURNING REF(AD) INTO ADH1;
+    
+    DELETE FROM EMPRUNT_O EMP WHERE EMP.REF_ADHERENT=ADH1;
+END;
+/
+
+--Suppression de tous les exemplaires de la maison d'édition "Gallimard" ainsi que tous les emprunts sans exemplaires associés.
+DELETE FROM EXEMPLAIRE_O ex WHERE ex.REF_CATALOGUE.MAISON_EDITION = 'Gallimard';
+DELETE FROM EMPRUNT_O em WHERE em.REF_EXEMPLAIRE IS DANGLING;
+
+--Suppression de la biblioteque numéro 1
+DECLARE
+REF_EXEMPLAIRES1 TAB_REF_EXEMPLAIRES_T;
+BEGIN
+    DELETE FROM BIBLIOTHEQUE_O b WHERE b.ID = 1
+    RETURNING b.REF_EXEMPLAIRES INTO REF_EXEMPLAIRES1;
+    
+    --supprimer tous les exemplaires et les emprunts de cette biblioteque
+    for i in REF_EXEMPLAIRES1.first .. REF_EXEMPLAIRES1.last
+    loop
+        DELETE FROM EMPRUNT_O WHERE REF_EXEMPLAIRE=REF_EXEMPLAIRES1(i);
+        DELETE FROM EXEMPLAIRE_O e WHERE ref(e) = REF_EXEMPLAIRES1(i);
+    end loop;
+END;
+/
+
+------------------------------------------------TESTS --------------------------------------------------------------------------------------
+--EXEMPLAIRE
+--- Test de la méthode COMPANNEEEDITION
+--- Test de la méthode CONSULTERAUTEURS
+
+--CATALOGUE
+--- Test de la méthode COMPID
+
+--BIBLIOTHEQUE
+--- Test de la méthode COMPREGIONVILLE
+--- Test de la méthode AJOUTEXEMPLAIRE
+
+--EMPRUNT
+--- Test de la méthode COMPDATEEND
+--- Test de la méthode PROLONGERDATEEND
+--- Test de la méthode TESTRETARD
+
+--ADHERENT
+--- Test de la méthode COMPNOMPRENOMVILLE
+
+--AUTEUR
+--- Test de la méthode GETAUTEUR
+SET SERVEROUTPUT ON
+DECLARE
+AUT1 AUTEUR_T;
+AUT2 AUTEUR_T;
+BEGIN
+    SELECT VALUE(AUT) INTO AUT1 FROM AUTEUR_O AUT WHERE ID=1;
+    AUT2 := AUT1.GETAUTEUR;
+    DBMS_OUTPUT.PUT_LINE('aut1.NOM='||AUT1.NOM);
+	DBMS_OUTPUT.PUT_LINE('aut2.NOM='||AUT2.NOM);
+	EXCEPTION
+		WHEN OTHERS THEN
+				DBMS_OUTPUT.PUT_LINE('sqlcode='||SQLCODE);
+				DBMS_OUTPUT.PUT_LINE('sqlerrm='||SQLERRM);
+END;
+/
+COMMIT;
+--- Test de la méthode COMPNOMPRENOMNAISSANCE
