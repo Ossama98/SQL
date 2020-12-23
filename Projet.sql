@@ -646,7 +646,7 @@ INSERT INTO ADHERENT_O AD VALUES (
 
 INSERT INTO ADHERENT_O AD VALUES (
             ADHERENT_T(
-    5, 'Robert', LIST_PRENOMS_T('Louis', 'E'), TAB_REF_BIBLIOTHEQUES_T(REFBIBLIO5), '30 impasse Muller', '+33-775-557-450', 'malin@msn.fr', TO_DATE('17/10/1984', 'DD/MM/YYYY'), TO_DATE('28/06/2015', 'DD-MM-YYYY'), 'Nice'
+    5, 'Robert', LIST_PRENOMS_T('Louis', 'E'), TAB_REF_BIBLIOTHEQUES_T(REFBIBLIO5), '30 impasse Muller', '+33-775-557-450', 'malin@msn.fr', TO_DATE('17/10/1984', 'DD/MM/YYYY'), TO_DATE('06/08/2020', 'DD-MM-YYYY'), 'Nice'
     ))
     RETURNING REF(AD) INTO REFADH5;
     
@@ -974,6 +974,11 @@ UPDATE EMPRUNT_O emp
 SET emp.DATE_END = emp.DATE_END - 1
 WHERE emp.REF_EXEMPLAIRE.REF_CATALOGUE.MAISON_EDITION = 'Gallimard';
 
+--Augmenter la date de retour de 5J si on emprunte le jour de l'adhésion
+UPDATE EMPRUNT_O emp
+SET emp.DATE_END = emp.DATE_END + 5
+WHERE emp.REF_ADHERENT.DATE_D_ADHESION = emp.DATE_START;
+
 --Changer un commentaire d'emrpunt si le livre est le petit prince.
 UPDATE EXEMPLAIRE_O ex
 	SET ex.COMMENTAIRE = '«C est le temps que tu as perdu pour ta rose qui fait ta rose si importante.»'
@@ -1051,32 +1056,41 @@ END;
 /
 
 ------------------------------------------------TESTS --------------------------------------------------------------------------------------
+--CATALOGUE
+--- Test de la fonction COMPANNEEEDITION
 SELECT * FROM CATALOGUE_O CAT ORDER BY VALUE(CAT); -- comparer avec ANNEE_EDITION décroissant
-SELECT * FROM EXEMPLAIRE_O EX ORDER BY VALUE(EX);  -- comparer avec ID croissant
-SELECT * FROM BIBLIOTHEQUE_O BI ORDER BY VALUE(BI);-- comparer avec région||ville
-SELECT * FROM EMPRUNT_O EMP ORDER BY VALUE(EMP);-- comparer avec DATE_END croissant
-SELECT * FROM ADHERENT_O AD ORDER BY VALUE(AD); -- comparer avec NOM||PREMIER PRENOMS||VILLE;
-SELECT * FROM AUTEUR_O AUT ORDER BY VALUE(AUT);-- comparer avec NOM||PREMIER PRENOM||DATE_DE_NAISSANCE
---EXEMPLAIRE
---- Test de la méthode COMPANNEEEDITION
+
 --- Test de la méthode CONSULTERAUTEURS
 
---CATALOGUE
---- Test de la méthode COMPID
+--EXEMPLAIRE
+--- Test de la fonction COMPID
+SELECT * FROM EXEMPLAIRE_O EX ORDER BY VALUE(EX);  -- comparer avec ID croissant
+
 
 --BIBLIOTHEQUE
---- Test de la méthode COMPREGIONVILLE
---- Test de la méthode AJOUTEXEMPLAIRE
+--- Test de la fonction COMPREGIONVILLE
+SELECT * FROM BIBLIOTHEQUE_O BI ORDER BY VALUE(BI);-- comparer avec région||ville
+--- Test de la méthode SET_STOCKAGE_UPDATED
+--- Test de la méthode exemplairesCount 
+--- Test de la méthode addExemplaire
+--- Test de la méthode deleteExemplaires
+--- Test de la méthode SET_STOCKAGE_UPDATED 
 
 --EMPRUNT
---- Test de la méthode COMPDATEEND
+--- Test de la fonction COMPDATEEND
+SELECT * FROM EMPRUNT_O EMP ORDER BY VALUE(EMP);-- comparer avec DATE_END croissant
+
 --- Test de la méthode PROLONGERDATEEND
 --- Test de la méthode TESTRETARD
 
 --ADHERENT
---- Test de la méthode COMPNOMPRENOMVILLE
+--- Test de la fonction COMPNOMPRENOMVILLE
+SELECT * FROM ADHERENT_O AD ORDER BY VALUE(AD); -- comparer avec NOM||PREMIER PRENOMS||VILLE;
 
 --AUTEUR
+--- Test de la méthode COMPNOMPRENOMNAISSANCE
+SELECT * FROM AUTEUR_O AUT ORDER BY VALUE(AUT);-- comparer avec NOM||PREMIER PRENOM||DATE_DE_NAISSANCE
+
 --- Test de la méthode GETAUTEUR
 SET SERVEROUTPUT ON
 DECLARE
@@ -1094,4 +1108,3 @@ BEGIN
 END;
 /
 COMMIT;
---- Test de la méthode COMPNOMPRENOMNAISSANCE
