@@ -62,12 +62,12 @@ CREATE OR REPLACE TYPE EXEMPLAIRE_T AS OBJECT(
 EXNO                  NUMBER(4),
 REF_CATALOGUE         REF CATALOGUE_T,
 COMMENTAIRE           VARCHAR2(80),
-ORDER MEMBER FUNCTION COMP_ID(E EXEMPLAIRE_T) RETURN NUMBER -- comparer avec ID croissant
+ORDER MEMBER FUNCTION COMP_EX_NO(E EXEMPLAIRE_T) RETURN NUMBER -- comparer avec ID croissant
 );
 /
 
 CREATE OR REPLACE TYPE BODY EXEMPLAIRE_T AS
-    ORDER MEMBER FUNCTION COMP_ID(E EXEMPLAIRE_T) RETURN NUMBER IS
+    ORDER MEMBER FUNCTION COMP_EX_NO(E EXEMPLAIRE_T) RETURN NUMBER IS
     BEGIN
         IF EXNO < E.EXNO THEN
            RETURN -1 ;  --SI ON VEUT COMPARER PAR ORDRE DÉCROISSANT RETURN 1
@@ -1066,7 +1066,7 @@ END;
 SELECT * FROM CATALOGUE_O CAT ORDER BY VALUE(CAT); -- comparer avec ANNEE_EDITION décroissant
 
 --------------------------------------------------------EXEMPLAIRE------------------------------------------------------
---- Test de la fonction COMP_ID
+--- Test de la fonction COMP_EX_NO
 SELECT * FROM EXEMPLAIRE_O EX ORDER BY VALUE(EX);  -- comparer avec ID croissant
 
 -- Test de la procedure SET_STOCKAGE_UPDATED sans paramètre.
