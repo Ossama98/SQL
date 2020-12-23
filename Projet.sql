@@ -92,7 +92,10 @@ ADDRESSE                    VARCHAR(50),
 VILLE                       VARCHAR(20),
 STOCKAGE_UPDATED            DATE,
 MAP MEMBER FUNCTION COMPREGIONVILLE RETURN VARCHAR2, -- comparer avec région||ville
-MEMBER PROCEDURE SET_STOCKAGE_UPDATED
+MEMBER PROCEDURE SET_STOCKAGE_UPDATED,
+MEMBER FUNCTION exemplairesCount RETURN NUMBER,
+MEMBER PROCEDURE addExemplaire(exref in REF EXEMPLAIRE_T),
+MEMBER PROCEDURE deleteExemplaires
 );
 /
 CREATE OR REPLACE TYPE BODY BIBLIOTHEQUE_T AS 
@@ -105,6 +108,22 @@ CREATE OR REPLACE TYPE BODY BIBLIOTHEQUE_T AS
     BEGIN
         STOCKAGE_UPDATED:= CURRENT_DATE;
     END;
+    
+    MEMBER FUNCTION exemplairesCount RETURN NUMBER IS
+    BEGIN
+         return self.REF_EXEMPLAIRES.count;
+    END;
+    
+    MEMBER PROCEDURE addExemplaire(exref in REF EXEMPLAIRE_T) IS
+    BEGIN
+    REF_EXEMPLAIRES.EXTEND;
+    REF_EXEMPLAIRES(REF_EXEMPLAIRES.LAST) := exref;
+    End;
+    
+    MEMBER PROCEDURE deleteExemplaires IS
+    BEGIN
+    REF_EXEMPLAIRES.DELETE;
+    End;
 END;
 /
 
@@ -875,6 +894,9 @@ COMMIT;
 SELECT C.TITRE 
 FROM CATALOGUE_O C;
 
+--Consulter toutes les bibliothèques avec les nombres d'exemplaires
+SELECT b.id, b.exemplairesCount() from BIBLIOTHEQUE_O b;
+
 --Rechercher tous les REF_EXEMPLAIRES par le titre de catalogue
 SELECT *
 FROM EXEMPLAIRE_O EX
@@ -985,7 +1007,7 @@ BEGIN
     35, REFCAT35, NULL
     ))
     RETURNING REF(EX) INTO REFEXM35;
-    
+
     INSERT INTO
     TABLE(SELECT b.REF_EXEMPLAIRES FROM  BIBLIOTHEQUE_O b WHERE b.ID = 1)
     SELECT REF(e) FROM EXEMPLAIRE_O e WHERE e.EXNO=35;
@@ -994,6 +1016,7 @@ BEGIN
     BIBL.SET_STOCKAGE_UPDATED;
 END;
 /
+
 
 ------------------------------------------------Requêtes de suppression --------------------------------------------------------------------------------------		    
 --Suppression de l'adhérent numéro 3 et ses emprunts associées
