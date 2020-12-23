@@ -61,6 +61,7 @@ END;
 CREATE OR REPLACE TYPE EXEMPLAIRE_T AS OBJECT(
 EXNO                  NUMBER(4),
 REF_CATALOGUE         REF CATALOGUE_T,
+COMMENTAIRE           VARCHAR2(80),
 ORDER MEMBER FUNCTION COMPID(E EXEMPLAIRE_T) RETURN NUMBER -- comparer avec ID croissant
 );
 /
@@ -458,76 +459,76 @@ INSERT INTO CATALOGUE_O CA VALUES (
 ---------------------------------------------------------- EXAMPLAIRES ----------------------------------------------------------------
 INSERT INTO EXEMPLAIRE_O EX VALUES (
             EXEMPLAIRE_T(
-    1, REFCAT1
+    1, REFCAT1, 'Peu abîmé'
     ))
     RETURNING REF(EX) INTO REFEXM1;
     
 
 INSERT INTO EXEMPLAIRE_O EX VALUES (
             EXEMPLAIRE_T(
-    2, REFCAT2
+    2, REFCAT2, NULL
     ))
     RETURNING REF(EX) INTO REFEXM2;
     
 
 INSERT INTO EXEMPLAIRE_O EX VALUES (
             EXEMPLAIRE_T(
-    3, REFCAT3
+    3, REFCAT3, NULL
     ))
     RETURNING REF(EX) INTO REFEXM3;
     
 
 INSERT INTO EXEMPLAIRE_O EX VALUES (
             EXEMPLAIRE_T(
-    4, REFCAT4
+    4, REFCAT4, NULL
     ))
     RETURNING REF(EX) INTO REFEXM4;
     
 
 INSERT INTO EXEMPLAIRE_O EX VALUES (
             EXEMPLAIRE_T(
-    5, REFCAT5
+    5, REFCAT5, NULL
     ))
     RETURNING REF(EX) INTO REFEXM5;
     
 
 INSERT INTO EXEMPLAIRE_O EX VALUES (
             EXEMPLAIRE_T(
-    6, REFCAT6
+    6, REFCAT6, 'CD manquant'
     ))
     RETURNING REF(EX) INTO REFEXM6;
     
 
 INSERT INTO EXEMPLAIRE_O EX VALUES (
             EXEMPLAIRE_T(
-    7, REFCAT7
+    7, REFCAT7, NULL
     ))
     RETURNING REF(EX) INTO REFEXM7;
     
 
 INSERT INTO EXEMPLAIRE_O EX VALUES (
             EXEMPLAIRE_T(
-    8, REFCAT8
+    8, REFCAT8, NULL
     ))
     RETURNING REF(EX) INTO REFEXM8;
     
 
 INSERT INTO EXEMPLAIRE_O EX VALUES (
             EXEMPLAIRE_T(
-    9, REFCAT9
+    9, REFCAT9, NULL
     ))
     RETURNING REF(EX) INTO REFEXM9;
     
 
 INSERT INTO EXEMPLAIRE_O EX VALUES (
             EXEMPLAIRE_T(
-    10, REFCAT10
+    10, REFCAT10, NULL
     ))
     RETURNING REF(EX) INTO REFEXM10;
 
 INSERT INTO EXEMPLAIRE_O EX VALUES (
             EXEMPLAIRE_T(
-    11, REFCAT11
+    11, REFCAT11, NULL
     ))
     RETURNING REF(EX) INTO REFEXM11;
 ---------------------------------------------------------------BIBLIOTHEQUE---------------------------------------------------------------------------
@@ -951,6 +952,11 @@ UPDATE EMPRUNT_O emp
 SET emp.DATE_END = emp.DATE_END - 1
 WHERE emp.REF_EXEMPLAIRE.REF_CATALOGUE.MAISON_EDITION = 'Gallimard';
 
+--Changer un commentaire d'emrpunt si le livre est le petit prince.
+UPDATE EXEMPLAIRE_O ex
+	SET ex.COMMENTAIRE = '«C est le temps que tu as perdu pour ta rose qui fait ta rose si importante.»'
+	WHERE ex.REF_CATALOGUE.TITRE = 'LE PETIT PRINCE';
+    
 --Mise à jour du clob du catalogue numéro 1
 UPDATE CATALOGUE_O
 SET DESCRIPTION = TO_CLOB('HELLO , je suis un CLOB')
@@ -976,7 +982,7 @@ BEGIN
 
     INSERT INTO EXEMPLAIRE_O EX VALUES (
             EXEMPLAIRE_T(
-    35, REFCAT35
+    35, REFCAT35, NULL
     ))
     RETURNING REF(EX) INTO REFEXM35;
     
