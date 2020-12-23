@@ -987,7 +987,12 @@ UPDATE ADHERENT_O adh
 SET adh.NOM = 'Loïc'
 WHERE adh.NOM = 'Loic' AND adh.REF_BIBLIOTHEQUES IS NOT NULL;
 
+--Réduire la date de retour de 1J des emprunts du livre de la maison d'édition 'Gallimard'
+UPDATE EMPRUNT_O emp
+SET emp.DATE_END = emp.DATE_END - 1
+WHERE emp.REF_EXEMPLAIRE.REF_CATALOGUE.MAISON_EDITION = 'Gallimard';
 
+		    
 --Suppression de l'adhérent numéro 3 et ses emprunts associées
 DECLARE
 ADH1    REF ADHERENT_T;
