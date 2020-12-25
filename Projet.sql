@@ -1272,3 +1272,46 @@ aut1.NOM=GIRARD
 aut2.NOM=GIRARD
 */
 COMMIT;
+
+--------------------------------------------------Chargement des clob(marche seulement sur votre ordinateur par ce que la base de donnée est sur votre serveur : ça donne No such file or directory)-----------------------------------------------------------------------------------------
+drop table catDescFiles;
+create table catDescFiles(
+CAT_NO number (4),
+TITRE varchar2(15),
+descFile bfile
+);
+
+CREATE OR REPLACE DIRECTORY bfile_dir AS 'C:\oracle\product\10.2.0\oradata\orcl\BFILES\';
+
+--Il faut ajouter des fichiers de descriptions comme description.txt dans votre répertoire C:\oracle\product\10.2.0\oradata\orcl\BFILES\'
+INSERT INTO catDescFiles VALUES(1, 'LE PETIT PRINCE', BFILENAME('BFILE_DIR', 'description.txt'));
+INSERT INTO catDescFiles VALUES(2, 'LIVRE2', BFILENAME('BFILE_DIR', 'description2.txt')); 
+
+declare
+cursor c is
+select CAT_NO, descFile from catDescFiles;
+v_clob clob;
+lg number(38);
+begin
+for j in c
+loop
+Dbms_Lob.FileOpen ( j.descFile, Dbms_Lob.File_Readonly );
+lg:=Dbms_Lob.GETLENGTH(j.descFile);
+
+select cat.DESCRIPTION into v_clob
+from CATALOGUE_O cat
+where cat.CAT_NO=1 for update;
+
+Dbms_Lob.LoadFromFile
+(
+dest_lob => v_clob,
+src_lob => j.descFile,
+amount => lg,
+dest_offset => 1,
+src_offset => 1
+);
+Dbms_Lob.FileClose ( j.descFile );
+end loop;
+commit;
+end;
+/
