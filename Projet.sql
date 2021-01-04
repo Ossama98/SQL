@@ -1273,7 +1273,16 @@ aut2.NOM=GIRARD
 */
 COMMIT;
 
---------------------------------------------------Chargement des clob(marche seulement sur votre ordinateur par ce que la base de donnée est sur votre serveur : ça donne No such file or directory)-----------------------------------------------------------------------------------------
+--------------------------------------------------Chargement des clob-----------------------------------------------------------------------------------------
+
+-- (marche seulement sur votre ordinateur par ce que la base de donnée est sur votre serveur : ça donne No such file or directory)
+
+-- Etant donné qu'il nous a été impossible d'uploader des fichiers sur la machine serveur proposée 
+-- pendant les TPs sur lesquels nous nous sommes appuyés lors du développement du projet.
+-- Nous avons simulé le chargement de Clob  avec l'utilisation de Varchar qui one été transformés en CLOBs.
+
+
+
 drop table catDescFiles;
 create table catDescFiles(
 CAT_NO number (4),
