@@ -387,6 +387,8 @@ REFBIBLIO10 REF BIBLIOTHEQUE_T;
 BEGIN
     
 ---------------------------------AUTEUR----------------------------------------------------------------------------------------------------------------------------------------
+-- On utilise TO_CLOB pour simuler un slob à partir d'un varchar.
+
 INSERT INTO AUTEUR_O AD VALUES (
             AUTEUR_T(
     1, 'GIRARD', LIST_PRENOMS_T('Paul', 'P'), TO_DATE('06/12/1990', 'DD/MM/YYYY'), TO_DATE('24/05/2019',  'DD-MM-YYYY'), 'FRANCAIS', 'Nice', TO_CLOB('clob 1')
@@ -1292,7 +1294,7 @@ descFile bfile
 
 CREATE OR REPLACE DIRECTORY bfile_dir AS 'C:\oracle\product\10.2.0\oradata\orcl\BFILES\';
 
---Il faut ajouter des fichiers de descriptions comme description.txt dans votre répertoire C:\oracle\product\10.2.0\oradata\orcl\BFILES\'
+-- Il faut ajouter des fichiers de descriptions comme description.txt dans votre répertoire C:\oracle\product\10.2.0\oradata\orcl\BFILES\'
 INSERT INTO catDescFiles VALUES(1, 'LE PETIT PRINCE', BFILENAME('BFILE_DIR', 'description.txt'));
 INSERT INTO catDescFiles VALUES(2, 'LIVRE2', BFILENAME('BFILE_DIR', 'description2.txt')); 
 
